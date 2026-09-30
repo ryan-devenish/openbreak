@@ -22,12 +22,12 @@ return <main className={'experience state-' + active}>
 <div className="shade"/></div>
 <Hero active={active}/>
 <div className="camera-area"><CameraFrame/>{!loaded[active === 'host' ? 'property' : 'view'] && <p className="image-notice">Original {active === 'host' ? 'property' : 'ocean'} photograph coming soon</p>}</div>
-<div className="story-area"><div className="story" key={active}><p className="promise">FREE SURF CAMS. BUILT LOCALLY.</p>
-{active === 'surfer' && <div className="next-actions"><button disabled>GET EARLY ACCESS</button><button disabled>NOMINATE A CAMERA SPOT</button><button disabled>NOMINATE A LOCAL BUSINESS</button><span>Coming next</span></div>}
-{active === 'host' && <div className="next-actions"><button disabled>SHOW US YOUR VIEW →</button><span>Coming next</span></div>}
-{active === 'business' && <div className="next-actions"><button disabled>PUT MY BUSINESS HERE →</button><span>Coming next</span></div>}
+<div className="story-area"><div className="story" key={active}><p className="promise">Free surf cams. Built locally.</p>
+{active === 'surfer' && <div className="next-actions"><button disabled>Get early access</button><button disabled>Nominate a camera spot</button><button disabled>Nominate a local business</button><span>Coming next</span></div>}
+{active === 'host' && <div className="next-actions"><button disabled>Show us your view →</button><span>Coming next</span></div>}
+{active === 'business' && <div className="next-actions"><button disabled>Put my business here →</button><span>Coming next</span></div>}
 </div><div className="context-card">{active === 'business' ? <LocalOffer/> : active === 'host' ? <PropertyCard prominent/> : null}</div></div>
 <PersonaActions active={active} selected={selected} preview={setPreview} select={value => setSelected(previous => previous === value ? 'default' : value)}/>
-<footer><span>OPENBREAK</span><p>Concept camera placement. Property is not currently affiliated with OpenBreak.</p>{selected !== 'default' && <button className="reset" onClick={() => { setSelected('default'); setPreview(null); }}>RESET VIEW ×</button>}</footer>
+<footer><span>OPENBREAK</span><p>{active === 'host' ? 'Concept camera placement. Property is not currently affiliated with OpenBreak.' : 'Concept camera. A free view of your break.'}</p>{selected !== 'default' && <button className="reset" onClick={() => { setSelected('default'); setPreview(null); }}>Reset view ×</button>}</footer>
 </main>;
 }
