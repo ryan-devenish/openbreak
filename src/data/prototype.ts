@@ -1,5 +1,5 @@
 export type Persona = 'default' | 'surfer' | 'host' | 'business';
-export const IMAGES = { view: '/images/windansea-view.jpg', property: '/images/windansea-property.jpg' };
+export const IMAGES = { view: '/images/windansea-surfer-view.jpg', property: '/images/windansea-property.jpg', host: '/images/windansea-host-view.jpg', business: '/images/lahaina-business-view.webp' };
 // Replace with the exact property listing URL.
 export const AIRBNB_PROPERTY_URL = 'https://www.airbnb.com/';
 export const personas: { id: Exclude<Persona, 'default'>; title: string; description: string }[] = [
@@ -13,5 +13,5 @@ surfer: ['Your break', 'should be free.'],
 host: ['Your view', 'becomes the camera.'],
 business: ['Reach local surfers.', 'Keep their camera free.'],
 };
-// Fictional prototype data, not a real business or offer.
-export const DEMO_LOCAL_OFFER = { business: 'JUAN’S BURRITOS', distance: '0.2 MI', offer: 'FREE COFFEE WITH ANY BREAKFAST BURRITO' };
+// Example placement for a real nearby business; no sponsorship or offer is claimed.
+export const DEMO_LOCAL_OFFER = { business: 'Lahaina Beach House', address: '710 Oliver Ave · Pacific Beach', offer: 'Your next stop after the surf.', url: 'https://lahainabeachhousepbca.com/' };
