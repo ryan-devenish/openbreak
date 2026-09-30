@@ -6,3 +6,90 @@
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 @media(max-width:760px){.experience{grid-template-rows:135px max(225px,28svh) auto auto auto}.next-actions{min-height:36px}.story-area{min-height:162px}}
 @media(min-width:761px) and (max-width:1000px){.story-area{width:100%;grid-template-columns:1fr 330px}.promise{font-size:11px}.action-description{font-size:11px}.persona-action{padding:18px}}
+
+/* One fixed canvas: persona content never changes the camera's grid track. */
+html, body, #root { width: 100%; height: 100%; overflow: hidden; }
+body { position: fixed; inset: 0; overscroll-behavior: none; }
+.experience {
+  height: 100svh;
+  min-height: 0;
+  grid-template-rows: 140px minmax(0, 1fr) 145px 120px 28px;
+  gap: 16px;
+  padding: 24px 5vw max(12px, env(safe-area-inset-bottom));
+}
+.experience > * { min-height: 0; min-width: 0; }
+.camera-frame { min-height: 0; }
+.story-area { height: 100%; min-height: 0; }
+.persona-actions { overflow: visible; }
+@media (min-width: 1600px) {
+  .experience { padding-left: 8vw; padding-right: 8vw; }
+}
+@media (max-width: 760px) {
+  .experience {
+    padding: max(16px, env(safe-area-inset-top)) 16px max(12px, env(safe-area-inset-bottom));
+    grid-template-rows: 105px minmax(0, 1fr) 162px 112px 32px;
+    gap: 12px;
+  }
+  .location { margin-bottom: 16px; }
+  .hero h1 { font-size: clamp(23px, 6vw, 38px); }
+  .business-headline h1 { font-size: clamp(19px, 4.8vw, 28px); }
+  .story-area { grid-template-rows: 60px 1fr; gap: 8px; }
+  .promise { margin-bottom: 6px; }
+  .next-actions { min-height: 0; gap: 4px 10px; }
+  .next-actions button { padding: 3px 0; }
+  .context-card { align-self: center; }
+  .persona-actions {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 6px;
+    padding: 0;
+    margin: 0;
+    overflow: visible;
+    scroll-snap-type: none;
+  }
+  .persona-action { min-height: 0; padding: 10px 8px; }
+  .action-heading { font-size: 11px; line-height: 1.25; }
+  .action-heading > span { display: none; }
+  .action-description { font-size: 9px; line-height: 1.35; margin-top: 7px; }
+  footer { display: grid; grid-template-columns: auto 1fr auto; gap: 8px; }
+  footer > span { font-size: 8px; }
+  footer p { font-size: 6px; max-width: none; }
+  .reset { font-size: 7px; padding: 4px 0; }
+}
+@media (max-width: 760px) and (max-height: 700px) {
+  .experience { grid-template-rows: 82px minmax(0, 1fr) 146px 104px 28px; gap: 8px; padding-top: 12px; }
+  .location { margin-bottom: 10px; }
+  .hero h1 { font-size: clamp(22px, 5.6vw, 32px); }
+  .business-headline h1 { font-size: 18px; }
+  .story-area { grid-template-rows: 52px 1fr; gap: 4px; }
+  .property-card { padding: 8px 10px; }
+  .local-offer { padding: 8px 12px; }
+  .local-offer h2 { margin: 5px 0; font-size: 12px; }
+  .local-offer .offer-business { margin: 5px 0; }
+}
+@media (min-width: 761px) and (max-height: 700px) {
+  .experience { grid-template-rows: 100px minmax(0, 1fr) 125px 100px 24px; gap: 10px; padding-top: 16px; }
+  .location { margin-bottom: 12px; }
+  .persona-action { padding: 12px 18px; }
+}
+@media (min-width: 650px) and (max-height: 500px) {
+  .experience { grid-template-rows: 65px minmax(0, 1fr) 90px 70px 20px; gap: 6px; padding: 10px 3vw; }
+  .location { margin-bottom: 6px; font-size: 8px; }
+  .hero h1 { font-size: 22px; }
+  .business-headline h1 { font-size: 17px; }
+  .story-area { width: 100%; grid-template-columns: 1fr 300px; grid-template-rows: 1fr; gap: 12px; }
+  .promise { font-size: 10px; }
+  .property-card, .local-offer { padding: 6px 10px; }
+  .eyebrow { margin-bottom: 4px; }
+  .property-card h2 { font-size: 12px; }
+  .property-meta { margin: 4px 0; }
+  .local-offer h2 { font-size: 12px; margin: 4px 0; }
+  .offer-business { margin: 4px 0; }
+  .persona-action { padding: 8px 12px; }
+  .action-heading { font-size: 12px; }
+  .action-description { font-size: 9px; margin-top: 5px; }
+  .camera-top { padding: 10px 12px; }
+  .camera-place { bottom: 10px; left: 12px; gap: 3px; }
+  .camera-place strong { font-size: 12px; }
+  .camera-concept { bottom: 10px; }
+}

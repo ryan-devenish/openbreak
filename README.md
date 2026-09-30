@@ -5,7 +5,7 @@
 A community-supported network of free surf cameras. Surfers get free access, hosts contribute valuable views and receive exposure, and local businesses support cameras while reaching surfers at specific breaks.
 
 ## Prototype
-Single-screen Windansea concept using Vite, React, TypeScript and plain CSS. Default, Surfer, Host and Business stories surround a fixed camera HUD. Desktop hover and keyboard focus preview states; clicking or tapping selects them. Select the same action again, use Reset View, or press Escape to reset. Host imagery crossfades over 400ms. Mobile actions scroll horizontally; reduced motion is respected.
+Single-screen Windansea concept using Vite, React, TypeScript and plain CSS. Default, Surfer, Host and Business stories surround a fixed camera HUD. Desktop hover and keyboard focus preview states; clicking or tapping selects them. Select the same action again, use Reset View, or press Escape to reset. Host imagery crossfades over 400ms. The page is locked to the viewport with no scrolling. All three mobile actions remain visible; the camera frame stays fixed across states. Reduced motion is respected.
 
 No live feed, backend, authentication, payments, forecasts or maps. Next-phase CTAs are disabled and labeled “Coming next.” The local offer is fictional demo data; the property is not affiliated with OpenBreak.
 
