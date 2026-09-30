@@ -7,6 +7,7 @@
 @media(max-width:760px){.experience{grid-template-rows:135px max(225px,28svh) auto auto auto}.next-actions{min-height:36px}.story-area{min-height:162px}}
 @media(min-width:761px) and (max-width:1000px){.story-area{width:100%;grid-template-columns:1fr 330px}.promise{font-size:11px}.action-description{font-size:11px}.persona-action{padding:18px}}
 
+ .mobile-description { display: none; }
 /* One fixed canvas: persona content never changes the camera's grid track. */
 html, body, #root { width: 100%; height: 100%; overflow: hidden; }
 body { position: fixed; inset: 0; overscroll-behavior: none; }
@@ -92,4 +93,64 @@ body { position: fixed; inset: 0; overscroll-behavior: none; }
   .camera-place { bottom: 10px; left: 12px; gap: 3px; }
   .camera-place strong { font-size: 12px; }
   .camera-concept { bottom: 10px; }
+}
+
+/* Mobile is an ocean-first composition, not miniature desktop cards. */
+@media (max-width: 760px) and (orientation: portrait) {
+  .experience {
+    height: 100dvh;
+    padding: max(18px, env(safe-area-inset-top)) 18px max(12px, env(safe-area-inset-bottom));
+    grid-template-rows: 100px minmax(0, 1fr) 142px 78px 30px;
+    gap: 14px;
+  }
+  .background.view { height: 160%; top: -38%; object-position: 50% 50%; }
+  .background.property { object-position: 45% 50%; }
+  .shade { background: linear-gradient(180deg, #0005, transparent 24%, transparent 48%, #071719c9 82%, #071719e6); }
+  .location { font-size: 9px; letter-spacing: .18em; margin-bottom: 17px; }
+  .hero h1 { font-size: clamp(25px, 6.3vw, 36px); line-height: 1.12; }
+  .hero h1 span:last-child { max-width: 360px; margin: auto; }
+  .business-headline h1 { font-size: clamp(18px, 4.8vw, 25px); line-height: 1.15; }
+  .camera-frame { width: 100%; }
+  .camera-top { font-size: 9px; padding: 14px; }
+  .camera-place { left: 14px; bottom: 15px; }
+  .camera-place strong { font-size: 17px; }
+  .camera-concept { right: 14px; bottom: 15px; font-size: 7px; }
+  .story-area { grid-template-rows: 64px 64px; gap: 10px; align-items: center; }
+  .story { align-self: center; }
+  .promise { font-size: 10px; letter-spacing: .14em; margin-bottom: 8px; }
+  .next-actions { gap: 4px 12px; }
+  .next-actions button { font-size: 9px; padding: 4px 0; }
+  .next-actions span { font-size: 9px; }
+  .context-card { width: 100%; max-width: none; }
+  .property-card { height: 64px; padding: 8px; gap: 10px; border-color: #ffffff30; background: #122a2d66; backdrop-filter: blur(8px); }
+  .property-photo { width: 44px; min-width: 44px; }
+  .property-card > div:last-child { flex: 1; position: relative; padding-right: 76px; min-width: 0; }
+  .property-card .eyebrow { font-size: 7px; letter-spacing: .12em; margin: 0 0 5px; }
+  .property-card h2 { font-size: 12px; line-height: 1.15; }
+  .property-card h2 span { display: none; }
+  .property-meta { margin: 4px 0 0; font-size: 8px; white-space: nowrap; }
+  .property-card a { position: absolute; right: 1px; top: 50%; transform: translateY(-50%); font-size: 8px; width: 65px; line-height: 1.6; padding: 8px 0; border: 0; }
+  .property-card.prominent { background: #122a2d99; }
+  .local-offer { height: 64px; padding: 7px 10px; }
+  .local-offer .eyebrow { font-size: 7px; margin-bottom: 4px; }
+  .offer-business { font-size: 8px; margin: 3px 0; }
+  .local-offer h2 { font-size: 11px; margin: 3px 0; }
+  .local-offer > p:last-child { font-size: 8px; margin: 3px 0 0; }
+  .persona-actions { gap: 8px; }
+  .persona-action { padding: 12px 8px; text-align: center; border-color: #ffffff40; background: #ffffff08; backdrop-filter: blur(6px); border-radius: 3px; }
+  .action-heading { justify-content: center; font-size: 11px; line-height: 1.25; min-height: 28px; align-items: center; letter-spacing: .01em; }
+  .action-description { display: none; }
+  .mobile-description { display: block; font-size: 10px; line-height: 1.3; margin-top: 4px; color: #ffffffb8; }
+  footer { display: flex; gap: 8px; }
+  footer > span { display: none; }
+  footer p { font-size: 8px; line-height: 1.3; max-width: 275px; color: #ffffffa6; }
+  .reset { font-size: 8px; padding: 10px 0; margin-left: auto; }
+}
+@media (max-width: 760px) and (orientation: portrait) and (max-height: 680px) {
+  .experience { padding-top: max(12px, env(safe-area-inset-top)); grid-template-rows: 88px minmax(0, 1fr) 132px 72px 26px; gap: 10px; }
+  .story-area { grid-template-rows: 58px 64px; }
+  .location { margin-bottom: 12px; }
+  .hero h1 { font-size: 24px; }
+  .business-headline h1 { font-size: 18px; }
+  .persona-action { padding: 8px 6px; }
 }
