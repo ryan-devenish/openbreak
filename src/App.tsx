@@ -27,7 +27,6 @@ const content = {
 
 export default function App() {
   const track = useRef<HTMLDivElement>(null);
-  const app = useRef<HTMLDivElement>(null);
   const details = useRef<HTMLElement>(null);
   const signup = useRef<HTMLElement>(null);
   const current = useRef(0);
@@ -43,8 +42,8 @@ export default function App() {
     element.scrollTo({ left: Math.max(0, Math.min(personas.length - 1, next)) * element.clientWidth, behavior: motion() });
   };
   const reveal = (element: HTMLElement | null) => {
-    if (!element || !app.current) return;
-    app.current.scrollTo({ top: element.offsetTop - app.current.offsetTop - 24, behavior: motion() });
+    if (!element) return;
+    element.scrollIntoView({ block: 'start', behavior: motion() });
     element.focus({ preventScroll: true });
   };
   useEffect(() => {
@@ -54,7 +53,6 @@ export default function App() {
     observer.observe(element);
     return () => observer.disconnect();
   }, []);
-  useEffect(() => { app.current?.scrollTo({ top: 0, behavior: 'instant' }); }, [index]);
 
   return <main className={'experience state-' + active} onKeyDown={event => {
     if ((event.target as HTMLElement).closest('input, textarea, select')) return;
@@ -80,7 +78,7 @@ export default function App() {
         </section>)}
       </div>
     </div>
-    <div className="app-zone" ref={app} role="region" aria-label={`${personas[index].title} app preview`} tabIndex={0}>
+    <div className="app-zone" role="region" aria-label={`${personas[index].title} app preview`} tabIndex={0}>
       <div className="app-content">
         {active === 'host' && <PropertyCard prominent/>}
         <PersonaActions index={index} navigate={navigate}/>
