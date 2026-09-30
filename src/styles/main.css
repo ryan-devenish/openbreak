@@ -154,3 +154,46 @@ body { position: fixed; inset: 0; overscroll-behavior: none; }
   .business-headline h1 { font-size: 18px; }
   .persona-action { padding: 8px 6px; }
 }
+
+/* The clear camera window is the focal point; everything outside is dimmed. */
+.backgrounds { overflow: hidden; }
+.shade { background: none; }
+.camera-area { z-index: 0; }
+.camera-frame {
+  background: transparent;
+  box-shadow: 0 0 0 100vmax rgba(3, 14, 17, .58);
+  border-color: rgba(255, 255, 255, .55);
+}
+.hero, .story-area, .persona-actions, footer { position: relative; z-index: 1; }
+.hero h1 { font-weight: 600; text-shadow: none; }
+.property-card, .property-card.prominent, .local-offer {
+  background: transparent;
+  backdrop-filter: none;
+  border: 0;
+  border-top: 1px solid rgba(255, 255, 255, .25);
+  padding-left: 0;
+  padding-right: 0;
+}
+.persona-action {
+  background: rgba(255, 255, 255, .14);
+  border-color: rgba(255, 255, 255, .4);
+  border-radius: 0;
+  backdrop-filter: none;
+  box-shadow: none;
+}
+.persona-action.active {
+  background: rgba(255, 255, 255, .94);
+  border-color: transparent;
+  color: #142b2e;
+  box-shadow: none;
+}
+.persona-action.active .action-description,
+.persona-action.active .mobile-description { color: #344f52; }
+.action-heading > span { display: none; }
+.action-heading { font-weight: 500; }
+.promise { font-weight: 500; }
+@media (max-width: 760px) and (orientation: portrait) {
+  .property-card, .property-card.prominent, .local-offer { background: transparent; backdrop-filter: none; }
+  .persona-action { background: rgba(255, 255, 255, .17); }
+  .persona-action.active { background: rgba(255, 255, 255, .94); }
+}
