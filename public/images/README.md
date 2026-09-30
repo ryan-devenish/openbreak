@@ -1,1 +1,5 @@
-Supply windansea-view.jpg (original balcony ocean photograph) and windansea-property.jpg (original property interior) in this directory. No stock or generated imagery.
+Original supplied property photographs:
+- windansea-view.jpg: balcony ocean view.
+- windansea-property.jpg: interior with ocean view, used for the host background and attribution thumbnail.
+
+No stock or generated imagery.

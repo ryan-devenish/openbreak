@@ -22,8 +22,8 @@ npm run preview
 ```
 Static output is in `dist/`.
 
-## Original images still needed
-Place photographs at:
+## Original photographs
+The supplied photographs are included at:
 - `public/images/windansea-view.jpg` — actual ocean/break from the balcony; fullscreen background.
 - `public/images/windansea-property.jpg` — interior; host-state background and attribution thumbnail.
 
