@@ -11,7 +11,7 @@ export const headlines: Record<Persona, string[]> = {
 default: ['The ocean is free.', 'Watching it should be too.'],
 surfer: ['Your break', 'should be free.'],
 host: ['Your view', 'becomes the camera.'],
-business: ['Reach surfers checking the break.', 'Help keep their camera free.'],
+business: ['Reach local surfers.', 'Keep their camera free.'],
 };
 // Fictional prototype data, not a real business or offer.
 export const DEMO_LOCAL_OFFER = { business: 'JUAN’S BURRITOS', distance: '0.2 MI', offer: 'FREE COFFEE WITH ANY BREAKFAST BURRITO' };
