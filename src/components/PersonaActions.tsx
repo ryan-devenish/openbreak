@@ -1,10 +1,13 @@
-import { personas, type Persona } from '../data/prototype';
-const mobileDescriptions = { surfer: 'Watch free', host: 'Host a camera', business: 'Support a break' };
-type Props = { active: Persona; selected: Persona; preview: (value: Persona | null) => void; select: (value: Persona) => void };
-export default function PersonaActions({ active, selected, preview, select }: Props) {
-return <div className="persona-actions" aria-label="Explore OpenBreak" onPointerLeave={() => preview(null)}>{personas.map(persona =>
-<button key={persona.id} className={'persona-action ' + (active === persona.id ? 'active' : '')} aria-pressed={selected === persona.id}
-onPointerEnter={e => { if (e.pointerType === 'mouse' && window.matchMedia('(hover: hover)').matches) preview(persona.id); }}
-onFocus={() => preview(persona.id)} onBlur={() => preview(null)} onClick={() => { select(persona.id); preview(null); }}>
-<span className="action-heading">{persona.title}<span aria-hidden="true">↗</span></span><span className="action-description">{persona.description}</span><span className="mobile-description">{mobileDescriptions[persona.id]}</span></button>)}</div>;
+import { personas } from '../data/prototype';
+const descriptions = ['Watch your break, free.', 'Your view. Everyone’s ocean.', 'Help keep a local camera free.'];
+export default function PersonaActions({ index, navigate }: { index: number; navigate: (index: number) => void }) {
+  return <nav className="view-navigation" aria-label="Change view">
+    <button className="view-arrow" disabled={index === 0} onClick={() => navigate(index - 1)} aria-label="Previous view">‹</button>
+    <div className="view-label" aria-live="polite" aria-atomic="true">
+      <p>{personas[index].title}</p><span>{descriptions[index]}</span>
+      <div className="view-dots" aria-hidden="true">{personas.map((persona, page) => <i key={persona.id} className={page === index ? 'selected' : ''}/>)}</div>
+    </div>
+    <button className="view-arrow" disabled={index === personas.length - 1} onClick={() => navigate(index + 1)} aria-label="Next view">›</button>
+    <span className="swipe-hint">Swipe to explore</span>
+  </nav>;
 }
