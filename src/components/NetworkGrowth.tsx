@@ -7,18 +7,15 @@ interface Props {
 export default function NetworkGrowth({ onAction }: Props) {
   return (
     <section className="network-growth" aria-label="Grow the network">
-      <h2>Have a view of the ocean?<br />Put it on OpenBreak.</h2>
+      <h2>Know a view that should have a free camera?</h2>
 
-      <button className="primary-button" onClick={() => onAction('main')}>
-        Put a view on OpenBreak
+      <button className="primary-button" onClick={() => onAction('nominate')}>
+        Nominate a view
       </button>
 
-      <nav className="growth-links">
-        <button onClick={() => onAction('nominate')}>
-          Nominate a view →
-        </button>
+      <nav className="growth-links" aria-label="Other ways to participate">
         <button onClick={() => onAction('host')}>
-          Have a view? Host a camera →
+          Have an ocean view? Host a camera →
         </button>
         <button onClick={() => onAction('advertise')}>
           Local business? Advertise nearby →

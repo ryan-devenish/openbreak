@@ -3,12 +3,20 @@ import CameraHero from './components/CameraHero';
 import HostAttribution from './components/HostAttribution';
 import LocalSponsor from './components/LocalSponsor';
 import NetworkGrowth from './components/NetworkGrowth';
-import PutAViewSheet from './components/PutAViewSheet';
+import NominateSheet from './components/NominateSheet';
+import HostSheet from './components/HostSheet';
+import AdvertiseSheet from './components/AdvertiseSheet';
+import type { Nomination } from './data/prototype';
 
-export type SheetView = null | 'main' | 'nominate' | 'host' | 'advertise';
+export type SheetView = null | 'nominate' | 'host' | 'advertise';
 
 export default function App() {
   const [sheet, setSheet] = useState<SheetView>(null);
+  const [nominations, setNominations] = useState<Nomination[]>([]);
+
+  const handleNominate = (nomination: Nomination) => {
+    setNominations((prev) => [...prev, nomination]);
+  };
 
   return (
     <main className="page">
@@ -20,8 +28,10 @@ export default function App() {
       <CameraHero />
 
       <div className="page-content">
-        <HostAttribution />
-        <LocalSponsor />
+        <div className="info-band">
+          <HostAttribution />
+          <LocalSponsor />
+        </div>
         <NetworkGrowth onAction={setSheet} />
 
         <footer>
@@ -30,7 +40,19 @@ export default function App() {
         </footer>
       </div>
 
-      <PutAViewSheet view={sheet} onClose={() => setSheet(null)} onChange={setSheet} />
+      <NominateSheet
+        open={sheet === 'nominate'}
+        onClose={() => setSheet(null)}
+        onNominate={handleNominate}
+      />
+      <HostSheet
+        open={sheet === 'host'}
+        onClose={() => setSheet(null)}
+      />
+      <AdvertiseSheet
+        open={sheet === 'advertise'}
+        onClose={() => setSheet(null)}
+      />
     </main>
   );
 }
