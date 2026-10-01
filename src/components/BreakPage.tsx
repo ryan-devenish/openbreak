@@ -72,16 +72,6 @@ export default function BreakPage({ surfBreak }: Props) {
       <CameraHero surfBreak={surfBreak} single />
 
       <div className="break-content">
-        <a className="host-inline host-inline-promoted" href={surfBreak.host.url} target="_blank" rel="noreferrer nofollow">
-          {surfBreak.host.image && (
-            <img src={surfBreak.host.image} alt="" className="host-inline-image" />
-          )}
-          <div className="host-inline-copy">
-            <strong>{surfBreak.host.name}</strong>
-            <span className="host-inline-provider">View on {surfBreak.host.provider} ↗</span>
-          </div>
-        </a>
-
         <NetworkGrowth onAction={setSheet} compact />
 
         <footer className="break-footer">
