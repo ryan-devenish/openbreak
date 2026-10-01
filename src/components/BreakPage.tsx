@@ -12,6 +12,14 @@ interface Props {
   surfBreak: SurfBreak;
 }
 
+function ShareIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M12 16V4m0 0L8 8m4-4 4 4M6 11v7a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-7" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
 export default function BreakPage({ surfBreak }: Props) {
   const [sheet, setSheet] = useState<SheetView>(null);
   const [nominations, setNominations] = useState<Nomination[]>([]);
@@ -59,41 +67,30 @@ export default function BreakPage({ surfBreak }: Props) {
           <h1 id="break-title">{surfBreak.name}</h1>
           <p>{surfBreak.location}</p>
         </div>
-        <button className="secondary-action break-share" type="button" onClick={handleShare} aria-label={`Share ${surfBreak.name}`}>
-          {shareLabel}
+        <button className="break-share" type="button" onClick={handleShare} aria-label={`Share ${surfBreak.name}`}>
+          <ShareIcon />
+          <span>{shareLabel}</span>
         </button>
       </section>
 
       <CameraHero surfBreak={surfBreak} single />
 
       <div className="break-content">
-        <section className="camera-context" aria-label="About this camera">
-          <div>
-            <p className="text-eyebrow">Right now</p>
-            <h2>See the break. Skip the forecast dashboard.</h2>
-            <p>
-              OpenBreak is built around the camera first. Forecast conditions can live here later when real data is available.
-            </p>
+        <a className="host-inline host-inline-promoted" href={surfBreak.host.url} target="_blank" rel="noreferrer nofollow">
+          {surfBreak.host.image && (
+            <img src={surfBreak.host.image} alt="" className="host-inline-image" />
+          )}
+          <div className="host-inline-copy">
+            <span className="host-inline-kicker">This view is hosted by</span>
+            <strong>{surfBreak.host.name}</strong>
+            <span className="host-inline-provider">See the spot on {surfBreak.host.provider} ↗</span>
           </div>
-
-          <a className="host-inline host-inline-promoted" href={surfBreak.host.url} target="_blank" rel="noreferrer nofollow">
-            {surfBreak.host.image && (
-              <img src={surfBreak.host.image} alt="" className="host-inline-image" />
-            )}
-            <div className="host-inline-copy">
-              <span className="host-inline-kicker">Hosted from here</span>
-              <strong>{surfBreak.host.name}</strong>
-              <span className="host-inline-endorsement">A pretty great view of {surfBreak.name}, if you ask us.</span>
-              <span className="host-inline-provider">See the spot on {surfBreak.host.provider} ↗</span>
-            </div>
-          </a>
-        </section>
+        </a>
 
         <NetworkGrowth onAction={setSheet} compact />
 
-        <footer>
+        <footer className="break-footer">
           <span className="logo">OPENBREAK</span>
-          <p>{surfBreak.camera.status === 'live' ? 'Live camera.' : 'Prototype camera preview. No live feed connected.'}</p>
         </footer>
       </div>
 
