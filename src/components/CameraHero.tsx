@@ -7,21 +7,21 @@ const CAMERAS = [
     name: CAMERA.name,
     location: CAMERA.location,
     image: IMAGES.camera,
-    host: 'Airbnb',
+    host: 'Oceanfront Penthouse',
   },
   {
     id: 'windansea-wide',
     name: 'Windansea',
     location: 'La Jolla, CA',
     image: '/images/windansea-view.jpg',
-    host: 'Airbnb',
+    host: 'Oceanfront Penthouse',
   },
   {
     id: 'lahaina-view',
     name: 'Pacific Beach',
     location: 'San Diego, CA',
     image: '/images/lahaina-business-view.webp',
-    host: 'Airbnb',
+    host: 'Oceanfront Penthouse',
   },
 ];
 
