@@ -18,7 +18,6 @@ export default function NominateSheet({ open, onClose, onNominate, onOpenHost }:
   const [pin, setPin] = useState<{ lat: number; lng: number } | null>(null);
   const [note, setNote] = useState('');
   const [relationship, setRelationship] = useState<string>('');
-  const [canIntro, setCanIntro] = useState<string>('');
   const [introEmail, setIntroEmail] = useState('');
 
   useEffect(() => {
@@ -38,7 +37,6 @@ export default function NominateSheet({ open, onClose, onNominate, onOpenHost }:
     setPin(null);
     setNote('');
     setRelationship('');
-    setCanIntro('');
     setIntroEmail('');
   };
 
@@ -68,10 +66,6 @@ export default function NominateSheet({ open, onClose, onNominate, onOpenHost }:
     }
   };
 
-  const handleIntroSelect = (value: string) => {
-    setCanIntro(value);
-    if (value === 'yes' || value === 'maybe') setStep('intro');
-  };
 
   const handleIntroSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -150,14 +144,14 @@ export default function NominateSheet({ open, onClose, onNominate, onOpenHost }:
           </div>
         )}
 
-        {step === 'findHost' && relationship === 'know' && !canIntro && (
+        {step === 'findHost' && relationship === 'know' && (
           <div className={flowClass}>
             <button className="sheet-back" onClick={() => setRelationship('')}>← Back</button>
             <h2>Help us connect</h2>
             <p className="sheet-description">Could you introduce us to the property owner?</p>
             <div className="choice-group">
-              <button type="button" className="choice-row" onClick={() => handleIntroSelect('yes')}><span className="choice-row-label">Yes, I can introduce you</span><span className="choice-row-arrow" aria-hidden="true">→</span></button>
-              <button type="button" className="choice-row" onClick={() => handleIntroSelect('maybe')}><span className="choice-row-label">Maybe</span><span className="choice-row-arrow" aria-hidden="true">→</span></button>
+              <button type="button" className="choice-row" onClick={() => setStep('intro')}><span className="choice-row-label">Yes, I can introduce you</span><span className="choice-row-arrow" aria-hidden="true">→</span></button>
+              <button type="button" className="choice-row" onClick={() => setStep('intro')}><span className="choice-row-label">Maybe</span><span className="choice-row-arrow" aria-hidden="true">→</span></button>
               <button type="button" className="choice-row" onClick={handleDone}><span className="choice-row-label">No</span><span className="choice-row-arrow" aria-hidden="true">→</span></button>
             </div>
           </div>
@@ -165,7 +159,7 @@ export default function NominateSheet({ open, onClose, onNominate, onOpenHost }:
 
         {step === 'intro' && (
           <div className={flowClass}>
-            <button className="sheet-back" onClick={() => { setStep('findHost'); setCanIntro(''); }}>← Back</button>
+            <button className="sheet-back" onClick={() => setStep('findHost')}>← Back</button>
             <h2>Help us connect</h2>
             <p className="sheet-description">Leave your email and we'll reach out about making an introduction.</p>
             <form onSubmit={handleIntroSubmit}>
