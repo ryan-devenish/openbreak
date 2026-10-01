@@ -24,7 +24,6 @@ export default function BreakPage({ surfBreak }: Props) {
   const [sheet, setSheet] = useState<SheetView>(null);
   const [nominations, setNominations] = useState<Nomination[]>([]);
   const [hostLocation, setHostLocation] = useState<{ lat: number; lng: number } | undefined>();
-  const [shareLabel, setShareLabel] = useState('Share');
 
   const handleNominate = (nomination: Nomination) => {
     setNominations((prev) => [...prev, nomination]);
@@ -48,10 +47,8 @@ export default function BreakPage({ surfBreak }: Props) {
         return;
       }
       await navigator.clipboard.writeText(window.location.href);
-      setShareLabel('Copied');
-      window.setTimeout(() => setShareLabel('Share'), 1800);
     } catch {
-      setShareLabel('Share');
+      // Native share cancellation or clipboard failure needs no persistent UI.
     }
   };
 
@@ -69,7 +66,6 @@ export default function BreakPage({ surfBreak }: Props) {
         </div>
         <button className="break-share" type="button" onClick={handleShare} aria-label={`Share ${surfBreak.name}`}>
           <ShareIcon />
-          <span>{shareLabel}</span>
         </button>
       </section>
 
@@ -81,9 +77,8 @@ export default function BreakPage({ surfBreak }: Props) {
             <img src={surfBreak.host.image} alt="" className="host-inline-image" />
           )}
           <div className="host-inline-copy">
-            <span className="host-inline-kicker">This view is hosted by</span>
             <strong>{surfBreak.host.name}</strong>
-            <span className="host-inline-provider">See the spot on {surfBreak.host.provider} ↗</span>
+            <span className="host-inline-provider">View on {surfBreak.host.provider} ↗</span>
           </div>
         </a>
 
