@@ -64,7 +64,14 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .text-button { background:none; border:none; padding:0; font-size:var(--text-md); text-align:left; line-height:1.4; text-decoration:underline; text-underline-offset:3px; color:var(--color-text); }
 .choice-row { display:flex; align-items:center; justify-content:space-between; width:100%; min-height:var(--control-lg); padding:var(--space-3) var(--space-4); background:var(--color-surface-raised); border:1px solid var(--color-border); border-radius:var(--radius-md); font-size:var(--text-md); color:var(--color-text); text-align:left; transition:background var(--duration-fast) var(--ease-standard),border-color var(--duration-fast) var(--ease-standard); }
 .choice-row:hover { background:var(--color-surface-hover); border-color:var(--color-border-input); }
-@media (hover: none) { .choice-row:hover, .growth-links button:hover, .icon-button:hover::before { background:initial; } }
+@media (hover: none), (pointer: coarse) {
+  .primary-button:hover:not(:disabled) { background:var(--color-action); }
+  .camera-play:hover { background:rgba(20,20,20,.52); }
+  .choice-row:hover { background:var(--color-surface-raised); border-color:var(--color-border); }
+  .secondary-action:hover { background:var(--color-surface); }
+  .growth-links button:hover { background:transparent; }
+  button:focus-visible, a:focus-visible { outline:none; }
+}
 .choice-row-content { display:flex; flex-direction:column; gap:2px; }
 .choice-row-label { font-weight:var(--weight-medium); }
 .choice-row-description { font-size:var(--text-sm); color:var(--color-muted); }
