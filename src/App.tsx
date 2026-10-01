@@ -1,6 +1,9 @@
 import { useState } from 'react';
 import CameraHero from './components/CameraHero';
 import BreakPage from './components/BreakPage';
+import BrowsePage from './components/BrowsePage';
+import HomeSearch from './components/HomeSearch';
+import SearchDiscovery from './components/SearchDiscovery';
 import NetworkGrowth from './components/NetworkGrowth';
 import NominateSheet from './components/NominateSheet';
 import HostSheet from './components/HostSheet';
@@ -12,6 +15,7 @@ export type SheetView = null | 'nominate' | 'host' | 'advertise';
 
 function HomePage() {
   const [sheet, setSheet] = useState<SheetView>(null);
+  const [searchOpen, setSearchOpen] = useState(false);
   const [nominations, setNominations] = useState<Nomination[]>([]);
   const [hostLocation, setHostLocation] = useState<{ lat: number; lng: number } | undefined>();
 
@@ -27,10 +31,14 @@ function HomePage() {
   return (
     <main className="page">
       <header className="site-header">
-        <span className="logo">OPENBREAK</span>
+        <div className="site-nav-row">
+          <span className="logo">OPENBREAK</span>
+          <a className="browse-link" href="/browse">Browse</a>
+        </div>
         <h1>Free surf cams.<br />No paywall.</h1>
       </header>
 
+      <HomeSearch onOpen={() => setSearchOpen(true)} />
       <CameraHero />
 
       <div className="page-content">
@@ -39,10 +47,11 @@ function HomePage() {
 
         <footer>
           <span className="logo">OPENBREAK</span>
-          <p>Concept camera. No live feed connected.</p>
+          <p>Windansea is a preview camera. No live feed connected.</p>
         </footer>
       </div>
 
+      <SearchDiscovery open={searchOpen} onClose={() => setSearchOpen(false)} />
       <NominateSheet
         open={sheet === 'nominate'}
         onClose={() => setSheet(null)}
@@ -62,8 +71,22 @@ function HomePage() {
   );
 }
 
+function BrowseRoute() {
+  const [searchOpen, setSearchOpen] = useState(false);
+  return (
+    <>
+      <BrowsePage onOpenSearch={() => setSearchOpen(true)} />
+      <SearchDiscovery open={searchOpen} onClose={() => setSearchOpen(false)} />
+    </>
+  );
+}
+
 export default function App() {
-  const match = window.location.pathname.match(/^\/break\/([^/]+)\/?$/);
+  const pathname = window.location.pathname.replace(/\/$/, '') || '/';
+
+  if (pathname === '/browse') return <BrowseRoute />;
+
+  const match = pathname.match(/^\/break\/([^/]+)$/);
   if (match) {
     const surfBreak = getBreakBySlug(match[1]);
     if (surfBreak) return <BreakPage surfBreak={surfBreak} />;
