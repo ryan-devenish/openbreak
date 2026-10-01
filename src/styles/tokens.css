@@ -11,43 +11,23 @@
  */
 
 :root {
-  /* ============================================
-   * COLORS
-   * ============================================ */
-
-  /* Backgrounds */
   --color-bg: #f8fafa;
   --color-surface: #fff;
   --color-surface-raised: #f0f2f2;
   --color-surface-hover: #e4e7e8;
-
-  /* Text */
   --color-text: #1d2528;
   --color-text-hover: #344347;
   --color-muted: #6b7275;
   --color-muted-light: #9da3a5;
-
-  /* Borders & Dividers */
   --color-border: #e7e9e9;
   --color-border-input: #c8ccce;
-
-  /* Interactive */
   --color-action: #1d2528;
   --color-action-hover: #344347;
   --color-disabled: #c8ccce;
   --color-focus: #006b86;
   --color-backdrop: rgba(0, 0, 0, 0.4);
-
-  /* Accent */
   --color-accent-green: #4a7c59;
-
-  /* ============================================
-   * TYPOGRAPHY
-   * ============================================ */
-
   --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-
-  /* Font sizes */
   --text-2xs: 10px;
   --text-xs: 11px;
   --text-sm: 13px;
@@ -56,16 +36,9 @@
   --text-lg: 16px;
   --text-xl: 17px;
   --text-2xl: 20px;
-
-  /* Font weights */
   --weight-normal: 400;
   --weight-medium: 500;
   --weight-semibold: 600;
-
-  /* ============================================
-   * SPACING
-   * ============================================ */
-
   --space-1: 4px;
   --space-2: 8px;
   --space-3: 12px;
@@ -74,11 +47,6 @@
   --space-6: 24px;
   --space-8: 32px;
   --space-12: 48px;
-
-  /* ============================================
-   * BORDER RADIUS
-   * ============================================ */
-
   --radius-sm: 6px;
   --radius-md: 8px;
   --radius-lg: 10px;
@@ -86,65 +54,91 @@
   --radius-2xl: 16px;
   --radius-pill: 24px;
   --radius-circle: 50%;
-
-  /* ============================================
-   * INTERACTIVE CONTROL SIZES
-   * ============================================ */
-
-  /* Min touch target: 44px for accessibility */
   --control-sm: 32px;
   --control-md: 44px;
   --control-lg: 48px;
-
-  /* Input/field height */
   --field-height: 46px;
   --field-padding-x: 14px;
   --field-padding-y: 12px;
-
-  /* ============================================
-   * DIALOG / MODAL
-   * ============================================ */
-
   --dialog-width-sm: 400px;
   --dialog-width-md: 440px;
   --dialog-width-lg: 520px;
   --dialog-padding: 20px;
   --dialog-padding-desktop: 24px;
-
-  /* ============================================
-   * ICONS
-   * ============================================ */
-
   --icon-sm: 16px;
   --icon-md: 20px;
   --icon-lg: 24px;
-
-  /* ============================================
-   * LAYOUT
-   * ============================================ */
-
   --gutter-mobile: 16px;
   --gutter-desktop: 24px;
   --gutter-lg: 32px;
-
-  /* Container widths - camera intentionally wider than content */
   --container-camera: 1200px;
   --container-content: 960px;
   --content-max: 1000px;
-
-  /* ============================================
-   * MOTION
-   * ============================================ */
-
   --duration-fast: 150ms;
   --duration-normal: 250ms;
   --duration-slow: 400ms;
   --ease-standard: ease;
-
-  /* ============================================
-   * SHADOWS
-   * ============================================ */
-
   --shadow-dialog: 0 -4px 24px rgba(0, 0, 0, 0.15);
   --shadow-pin: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Restored component rules that belong to the same design system layer. */
+.icon-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: var(--control-md);
+  height: var(--control-md);
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-circle);
+  color: var(--color-muted);
+}
+.icon-button::before {
+  content: '';
+  position: absolute;
+  inset: 6px;
+  background: var(--color-surface-raised);
+  border-radius: var(--radius-circle);
+  z-index: -1;
+}
+.sheet-close { position: absolute; top: var(--space-2); right: var(--space-2); z-index: 10; }
+.sheet-view h2 { font-size: var(--text-2xl); font-weight: var(--weight-semibold); margin: 0 0 var(--space-1); letter-spacing: -0.02em; padding-right: var(--space-12); }
+.sheet-description { font-size: var(--text-md); color: var(--color-muted); margin: 0 0 var(--space-4); line-height: 1.4; }
+.sheet-back { display: inline-flex; align-items: center; min-height: var(--control-md); background: none; border: none; padding: 0; font-size: var(--text-base); color: var(--color-muted); margin-bottom: var(--space-2); }
+.nomination-map-container { position: relative; margin-bottom: var(--space-4); }
+.nomination-map { width: 100%; height: 220px; border-radius: var(--radius-lg); overflow: hidden; background: var(--color-border); }
+.map-hint { position: absolute; bottom: var(--space-3); left: 50%; transform: translateX(-50%); background: rgba(29, 37, 40, 0.85); color: var(--color-surface); font-size: var(--text-sm); padding: var(--space-1) var(--space-3); border-radius: var(--radius-2xl); pointer-events: none; }
+.nomination-pin { background: none; border: none; }
+.pin-dot { width: 24px; height: 24px; background: var(--color-action); border: 3px solid var(--color-surface); border-radius: var(--radius-circle); box-shadow: var(--shadow-pin); }
+.note-label { font-size: var(--text-sm); font-weight: var(--weight-medium); margin-bottom: var(--space-1); display: block; }
+.note-label span { font-weight: var(--weight-normal); color: var(--color-muted); }
+.sheet-success { text-align: center; padding-top: var(--space-5); }
+.success-label { font-size: var(--text-xs); letter-spacing: 0.1em; color: var(--color-muted); margin: 0 0 var(--space-2); }
+.success-message { font-size: var(--text-lg); line-height: 1.4; color: var(--color-text); margin: 0 0 var(--space-6); }
+.success-actions { display: flex; flex-direction: column; gap: var(--space-4); align-items: center; }
+.success-actions .text-button { text-align: center; }
+.sheet-view form { display: flex; flex-direction: column; gap: var(--space-1); }
+.sheet-view label { display: block; font-size: var(--text-sm); font-weight: var(--weight-medium); margin-top: var(--space-3); }
+.sheet-view label:first-of-type { margin-top: 0; }
+.sheet-view label span { font-weight: var(--weight-normal); color: var(--color-muted); }
+.field-hint { display: block; font-size: var(--text-xs); font-weight: var(--weight-normal); color: var(--color-muted-light); margin-top: 2px; }
+.choice-group { display: flex; flex-direction: column; gap: var(--space-2); }
+.sheet-view input, .sheet-view textarea { display: block; width: 100%; min-height: var(--field-height); padding: var(--field-padding-y) var(--field-padding-x); border: 1px solid var(--color-border-input); border-radius: var(--radius-md); font-size: var(--text-lg); background: var(--color-surface); }
+.sheet-view input:focus, .sheet-view textarea:focus { border-color: var(--color-text); outline: none; }
+.sheet-view textarea { resize: vertical; min-height: 60px; }
+.sheet-view fieldset { border: none; padding: 0; margin: 0; }
+.sheet-view fieldset + fieldset { margin-top: var(--space-4); }
+.sheet-view legend { font-size: var(--text-sm); font-weight: var(--weight-medium); margin-bottom: var(--space-2); }
+.radio-label { display: flex; align-items: center; gap: var(--space-2); padding: var(--space-2) 0; font-size: var(--text-base); font-weight: var(--weight-normal); }
+.radio-label input { width: 18px; height: 18px; margin: 0; accent-color: var(--color-action); }
+.sheet-view .primary-button { margin-top: var(--space-5); width: 100%; }
+.form-note { font-size: var(--text-xs); color: var(--color-muted-light); text-align: center; margin: var(--space-2) 0 0; }
+
+@media (min-width: 600px) {
+  .sheet { max-width: var(--dialog-width-md); height: fit-content; border-radius: var(--radius-2xl); margin: auto; max-height: calc(100dvh - var(--space-12)); }
+  .sheet-tall { max-width: var(--dialog-width-lg); max-height: calc(100dvh - var(--space-12)); }
+  .sheet-content { padding: var(--dialog-padding-desktop); }
+  .nomination-map { height: 280px; }
 }
