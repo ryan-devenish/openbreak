@@ -1,9 +1,10 @@
-export type CameraStatus = 'live' | 'concept' | 'offline';
+export type CameraStatus = 'live' | 'preview' | 'offline' | 'coming-soon';
 
 export interface BreakCamera {
   id: string;
   image: string;
   status: CameraStatus;
+  addedAt?: string;
 }
 
 export interface BreakHost {
@@ -17,7 +18,10 @@ export interface SurfBreak {
   slug: string;
   name: string;
   location: string;
+  aliases?: string[];
   coordinates: { lat: number; lng: number };
+  geographyId?: string;
+  geographyPath?: string[];
   camera: BreakCamera;
   host: BreakHost;
   metadata?: Record<string, string>;
@@ -27,11 +31,14 @@ const windansea: SurfBreak = {
   slug: 'windansea',
   name: 'Windansea',
   location: 'La Jolla, CA',
+  aliases: ['wind n sea'],
   coordinates: { lat: 32.8328, lng: -117.2813 },
+  geographyId: 'la-jolla',
+  geographyPath: ['pacific', 'us', 'ca', 'san-diego', 'la-jolla'],
   camera: {
     id: 'windansea-main',
     image: '/images/windansea-surfer-view.jpg',
-    status: 'concept',
+    status: 'preview',
   },
   host: {
     name: 'Oceanfront Penthouse',
