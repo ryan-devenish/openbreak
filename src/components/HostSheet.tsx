@@ -1,4 +1,7 @@
 import { useEffect, useRef, useState, FormEvent } from 'react';
+import L from 'leaflet';
+import 'leaflet/dist/leaflet.css';
+import { CAMERA } from '../data/prototype';
 
 interface Props {
   open: boolean;
@@ -12,12 +15,15 @@ interface HostFormData {
   url?: string;
   location: string;
   email: string;
+  coordinates?: { lat: number; lng: number };
+  note?: string;
 }
 
 export default function HostSheet({ open, onClose, initialLocation }: Props) {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const [step, setStep] = useState<Step>('choice');
   const [formData, setFormData] = useState<HostFormData>({ location: '', email: '' });
+  const [viewPin, setViewPin] = useState<{ lat: number; lng: number } | null>(initialLocation ?? null);
 
   useEffect(() => {
     const dialog = dialogRef.current;
@@ -34,6 +40,7 @@ export default function HostSheet({ open, onClose, initialLocation }: Props) {
   const handleClose = () => {
     setStep('choice');
     setFormData({ location: '', email: '' });
+    setViewPin(initialLocation ?? null);
     document.body.style.overflow = '';
     onClose();
   };
@@ -56,6 +63,7 @@ export default function HostSheet({ open, onClose, initialLocation }: Props) {
 
   const handleNeedSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!viewPin) return;
     const form = e.currentTarget;
     if (!form.checkValidity()) {
       form.reportValidity();
@@ -65,6 +73,8 @@ export default function HostSheet({ open, onClose, initialLocation }: Props) {
     setFormData({
       location: data.get('location') as string,
       email: data.get('email') as string,
+      coordinates: viewPin,
+      note: (data.get('note') as string)?.trim() || undefined,
     });
     setStep('success');
   };
@@ -171,14 +181,23 @@ export default function HostSheet({ open, onClose, initialLocation }: Props) {
               Tell us where it is. We'll follow up about adding a camera.
             </p>
             <form onSubmit={handleNeedSubmit}>
-              <label htmlFor="view-location">View location</label>
+              <label>View location</label>
+              <p className="field-hint host-map-hint">Drop a pin as close as you can to the property or camera viewpoint.</p>
+              <HostLocationMap pin={viewPin} onPinChange={setViewPin} active={open && step === 'need'} />
+              <label htmlFor="view-location">Location name <span>(optional)</span></label>
               <input
                 id="view-location"
                 name="location"
-                placeholder="Break or neighborhood"
+                placeholder="Windansea, Marine St, address..."
                 maxLength={200}
-                required
-                defaultValue={initialLocation ? `${initialLocation.lat.toFixed(4)}, ${initialLocation.lng.toFixed(4)}` : ''}
+              />
+              <label htmlFor="view-note">Tell us about the view <span>(optional)</span></label>
+              <textarea
+                id="view-note"
+                name="note"
+                rows={2}
+                placeholder="3rd-floor balcony looking southwest..."
+                maxLength={300}
               />
               <label htmlFor="view-email">Email</label>
               <input
@@ -189,7 +208,7 @@ export default function HostSheet({ open, onClose, initialLocation }: Props) {
                 maxLength={254}
                 required
               />
-              <button className="primary-button" type="submit">
+              <button className="primary-button" type="submit" disabled={!viewPin}>
                 Express interest
               </button>
               <p className="form-note">Preview only. Submissions are not sent yet.</p>
@@ -215,3 +234,72 @@ export default function HostSheet({ open, onClose, initialLocation }: Props) {
     </dialog>
   );
 }
+
+
+function HostLocationMap({ pin, onPinChange, active }: {
+  pin: { lat: number; lng: number } | null;
+  onPinChange: (pin: { lat: number; lng: number }) => void;
+  active: boolean;
+}) {
+  const mapRef = useRef<HTMLDivElement>(null);
+  const mapInstanceRef = useRef<L.Map | null>(null);
+  const markerRef = useRef<L.Marker | null>(null);
+
+  useEffect(() => {
+    if (!mapRef.current || mapInstanceRef.current) return;
+    const map = L.map(mapRef.current, {
+      center: [CAMERA.coordinates.lat, CAMERA.coordinates.lng],
+      zoom: 14,
+      zoomControl: true,
+      attributionControl: true,
+    });
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '© OpenStreetMap',
+    }).addTo(map);
+    map.on('click', (e: L.LeafletMouseEvent) => onPinChange({ lat: e.latlng.lat, lng: e.latlng.lng }));
+    mapInstanceRef.current = map;
+    return () => {
+      map.remove();
+      mapInstanceRef.current = null;
+    };
+  }, [onPinChange]);
+
+  useEffect(() => {
+    const map = mapInstanceRef.current;
+    const node = mapRef.current;
+    if (!map || !node || !active) return;
+    const refresh = () => map.invalidateSize({ animate: false });
+    const frame = requestAnimationFrame(refresh);
+    const timeout = window.setTimeout(refresh, 300);
+    const observer = new ResizeObserver(refresh);
+    observer.observe(node);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.clearTimeout(timeout);
+      observer.disconnect();
+    };
+  }, [active]);
+
+  useEffect(() => {
+    const map = mapInstanceRef.current;
+    if (!map) return;
+    if (markerRef.current) {
+      map.removeLayer(markerRef.current);
+      markerRef.current = null;
+    }
+    if (pin) {
+      markerRef.current = L.marker([pin.lat, pin.lng], {
+        icon: L.divIcon({ className: 'nomination-pin', html: '<div class="pin-dot"></div>', iconSize: [24, 24], iconAnchor: [12, 12] }),
+      }).addTo(map);
+    }
+  }, [pin]);
+
+  return (
+    <div className="nomination-map-container">
+      <div ref={mapRef} className="nomination-map" />
+      {!pin && <p className="map-hint">Tap to place a pin</p>}
+    </div>
+  );
+}
+
