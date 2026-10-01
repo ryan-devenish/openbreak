@@ -50,18 +50,15 @@ export default function NominateSheet({ open, onClose, onNominate, onOpenHost }:
 
   const handleSubmit = () => {
     if (!pin) return;
-    const nomination: Nomination = {
+    onNominate({
       id: crypto.randomUUID(),
       lat: pin.lat,
       lng: pin.lng,
       note: note.trim() || undefined,
       createdAt: Date.now(),
-    };
-    onNominate(nomination);
+    });
     setStep('success');
   };
-
-  const handleFindHost = () => setStep('findHost');
 
   const handleRelationshipSelect = (value: string) => {
     setRelationship(value);
@@ -87,6 +84,7 @@ export default function NominateSheet({ open, onClose, onNominate, onOpenHost }:
   };
 
   const handleDone = () => handleClose();
+  const flowClass = step === 'map' ? 'sheet-view' : 'sheet-view nomination-flow-step';
 
   return (
     <dialog ref={dialogRef} className="sheet sheet-tall" onClose={handleClose} aria-labelledby="nominate-dialog-title">
@@ -119,18 +117,19 @@ export default function NominateSheet({ open, onClose, onNominate, onOpenHost }:
         )}
 
         {step === 'success' && (
-          <div className="sheet-view sheet-success">
+          <div className={`${flowClass} sheet-success nomination-success`}>
             <p className="success-label">VIEW NOMINATED</p>
             <p className="success-message">Every nomination helps us find where the next free camera should go.</p>
-            <div className="success-actions">
-              <button className="text-button" onClick={handleFindHost}>Know someone with a view here? Help us find a host →</button>
-              <button className="primary-button" onClick={handleDone}>Done</button>
+            <div className="host-followup">
+              <p>Know someone with a view here?</p>
+              <button className="secondary-action" onClick={() => setStep('findHost')}>Help us find a host →</button>
             </div>
+            <button className="primary-button" onClick={handleDone}>Done</button>
           </div>
         )}
 
         {step === 'findHost' && !relationship && (
-          <div className="sheet-view">
+          <div className={flowClass}>
             <button className="sheet-back" onClick={() => setStep('success')}>← Back</button>
             <h2>Help us find a host</h2>
             <p className="sheet-description">Do you know or control a property with this view?</p>
@@ -152,7 +151,7 @@ export default function NominateSheet({ open, onClose, onNominate, onOpenHost }:
         )}
 
         {step === 'findHost' && relationship === 'know' && !canIntro && (
-          <div className="sheet-view">
+          <div className={flowClass}>
             <button className="sheet-back" onClick={() => setRelationship('')}>← Back</button>
             <h2>Help us connect</h2>
             <p className="sheet-description">Could you introduce us to the property owner?</p>
@@ -165,7 +164,7 @@ export default function NominateSheet({ open, onClose, onNominate, onOpenHost }:
         )}
 
         {step === 'intro' && (
-          <div className="sheet-view">
+          <div className={flowClass}>
             <button className="sheet-back" onClick={() => { setStep('findHost'); setCanIntro(''); }}>← Back</button>
             <h2>Help us connect</h2>
             <p className="sheet-description">Leave your email and we'll reach out about making an introduction.</p>
@@ -179,10 +178,10 @@ export default function NominateSheet({ open, onClose, onNominate, onOpenHost }:
         )}
 
         {step === 'introSuccess' && (
-          <div className="sheet-view sheet-success">
+          <div className={`${flowClass} sheet-success`}>
             <p className="success-label">RECEIVED</p>
             <p className="success-message">Thanks — we'll be in touch about making an introduction.</p>
-            <p className="form-note" style={{ marginBottom: 'var(--space-6)' }}>Preview only. Nothing was actually submitted.</p>
+            <p className="form-note success-note">Preview only. Nothing was actually submitted.</p>
             <button className="primary-button" onClick={handleDone}>Done</button>
           </div>
         )}
@@ -202,26 +201,18 @@ function NominationMap({ pin, onPinChange, active }: {
 
   useEffect(() => {
     if (!mapRef.current || mapInstanceRef.current) return;
-
     const map = L.map(mapRef.current, {
       center: [CAMERA.coordinates.lat, CAMERA.coordinates.lng],
       zoom: 14,
       zoomControl: true,
       attributionControl: true,
     });
-
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 19,
       attribution: '© OpenStreetMap',
     }).addTo(map);
-
-    map.on('click', (e: L.LeafletMouseEvent) => {
-      const { lat, lng } = e.latlng;
-      onPinChange({ lat, lng });
-    });
-
+    map.on('click', (e: L.LeafletMouseEvent) => onPinChange({ lat: e.latlng.lat, lng: e.latlng.lng }));
     mapInstanceRef.current = map;
-
     return () => {
       map.remove();
       mapInstanceRef.current = null;
@@ -232,13 +223,11 @@ function NominationMap({ pin, onPinChange, active }: {
     const map = mapInstanceRef.current;
     const node = mapRef.current;
     if (!map || !node || !active) return;
-
     const refresh = () => map.invalidateSize({ animate: false });
     const frame = requestAnimationFrame(refresh);
     const timeout = window.setTimeout(refresh, 300);
     const observer = new ResizeObserver(refresh);
     observer.observe(node);
-
     return () => {
       cancelAnimationFrame(frame);
       window.clearTimeout(timeout);
@@ -249,22 +238,14 @@ function NominationMap({ pin, onPinChange, active }: {
   useEffect(() => {
     const map = mapInstanceRef.current;
     if (!map) return;
-
     if (markerRef.current) {
       map.removeLayer(markerRef.current);
       markerRef.current = null;
     }
-
     if (pin) {
-      const marker = L.marker([pin.lat, pin.lng], {
-        icon: L.divIcon({
-          className: 'nomination-pin',
-          html: '<div class="pin-dot"></div>',
-          iconSize: [24, 24],
-          iconAnchor: [12, 12],
-        }),
+      markerRef.current = L.marker([pin.lat, pin.lng], {
+        icon: L.divIcon({ className: 'nomination-pin', html: '<div class="pin-dot"></div>', iconSize: [24, 24], iconAnchor: [12, 12] }),
       }).addTo(map);
-      markerRef.current = marker;
     }
   }, [pin]);
 
