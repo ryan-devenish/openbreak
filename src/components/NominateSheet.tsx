@@ -10,7 +10,7 @@ interface Props {
   onOpenHost?: (location: { lat: number; lng: number }) => void;
 }
 
-type Step = 'map' | 'success' | 'findHost' | 'intro' | 'introSuccess';
+type Step = 'map' | 'success' | 'findHost' | 'intro' | 'introSuccess' | 'thanks';
 
 export default function NominateSheet({ open, onClose, onNominate, onOpenHost }: Props) {
   const dialogRef = useRef<HTMLDialogElement>(null);
@@ -136,7 +136,7 @@ export default function NominateSheet({ open, onClose, onNominate, onOpenHost }:
                 <div className="choice-row-content"><span className="choice-row-label">I know the owner</span><span className="choice-row-description">Help us get in touch</span></div>
                 <span className="choice-row-arrow" aria-hidden="true">→</span>
               </button>
-              <button type="button" className="choice-row" onClick={handleDone}>
+              <button type="button" className="choice-row" onClick={() => setStep('thanks')}>
                 <div className="choice-row-content"><span className="choice-row-label">No</span><span className="choice-row-description">Thanks for nominating</span></div>
                 <span className="choice-row-arrow" aria-hidden="true">→</span>
               </button>
@@ -152,7 +152,7 @@ export default function NominateSheet({ open, onClose, onNominate, onOpenHost }:
             <div className="choice-group">
               <button type="button" className="choice-row" onClick={() => setStep('intro')}><span className="choice-row-label">Yes, I can introduce you</span><span className="choice-row-arrow" aria-hidden="true">→</span></button>
               <button type="button" className="choice-row" onClick={() => setStep('intro')}><span className="choice-row-label">Maybe</span><span className="choice-row-arrow" aria-hidden="true">→</span></button>
-              <button type="button" className="choice-row" onClick={handleDone}><span className="choice-row-label">No</span><span className="choice-row-arrow" aria-hidden="true">→</span></button>
+              <button type="button" className="choice-row" onClick={() => setStep('thanks')}><span className="choice-row-label">No</span><span className="choice-row-arrow" aria-hidden="true">→</span></button>
             </div>
           </div>
         )}
@@ -168,6 +168,15 @@ export default function NominateSheet({ open, onClose, onNominate, onOpenHost }:
               <button className="primary-button" type="submit">Submit</button>
               <p className="form-note">Preview only. Submissions are not sent yet.</p>
             </form>
+          </div>
+        )}
+
+
+        {step === 'thanks' && (
+          <div className={`${flowClass} sheet-success nomination-success`}>
+            <p className="success-label">THANKS FOR NOMINATING</p>
+            <p className="success-message">Your nomination still helps us decide where the next free camera should go.</p>
+            <button className="primary-button" onClick={handleDone}>Done</button>
           </div>
         )}
 
