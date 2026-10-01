@@ -20,6 +20,13 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
+      # The lockfile was generated on macOS and can omit npm's platform-specific
+      # optional native packages. Install the Ubuntu x64 binaries explicitly.
+      - name: Install Linux native build dependencies
+        run: |
+          npm install --no-save \
+            @rollup/rollup-linux-x64-gnu@$(node -p "require('./node_modules/rollup/package.json').version") \
+            @esbuild/linux-x64@$(node -p "require('./node_modules/esbuild/package.json').version")
       - run: npm run build
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
