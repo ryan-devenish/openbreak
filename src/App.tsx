@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import CameraHero from './components/CameraHero';
-import HostAttribution from './components/HostAttribution';
 import LocalSponsor from './components/LocalSponsor';
 import NetworkGrowth from './components/NetworkGrowth';
 import NominateSheet from './components/NominateSheet';
@@ -40,7 +39,6 @@ export default function App() {
 
       <div className="page-content">
         <div className="info-band">
-          <HostAttribution />
           <LocalSponsor />
         </div>
         <NetworkGrowth onAction={setSheet} />
