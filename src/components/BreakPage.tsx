@@ -75,10 +75,17 @@ export default function BreakPage({ surfBreak }: Props) {
               OpenBreak is built around the camera first. Forecast conditions can live here later when real data is available.
             </p>
           </div>
-          <a className="host-inline" href={surfBreak.host.url} target="_blank" rel="noreferrer nofollow">
-            <span>Camera hosted by</span>
-            <strong>{surfBreak.host.name}</strong>
-            <span className="host-inline-provider">View on {surfBreak.host.provider} ↗</span>
+
+          <a className="host-inline host-inline-promoted" href={surfBreak.host.url} target="_blank" rel="noreferrer nofollow">
+            {surfBreak.host.image && (
+              <img src={surfBreak.host.image} alt="" className="host-inline-image" />
+            )}
+            <div className="host-inline-copy">
+              <span className="host-inline-kicker">Hosted from here</span>
+              <strong>{surfBreak.host.name}</strong>
+              <span className="host-inline-endorsement">A pretty great view of {surfBreak.name}, if you ask us.</span>
+              <span className="host-inline-provider">See the spot on {surfBreak.host.provider} ↗</span>
+            </div>
           </a>
         </section>
 
