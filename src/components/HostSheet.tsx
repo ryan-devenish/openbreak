@@ -30,7 +30,7 @@ export default function HostSheet({ open, onClose }: Props) {
   };
 
   return (
-    <dialog ref={dialogRef} className="sheet" onClose={handleClose}>
+    <dialog ref={dialogRef} className="sheet" onClose={handleClose} aria-labelledby="host-dialog-title">
       <div className="sheet-content">
         <button className="sheet-close" onClick={handleClose} aria-label="Close">
           ×
@@ -38,7 +38,7 @@ export default function HostSheet({ open, onClose }: Props) {
 
         {!hostType && (
           <div className="sheet-view">
-            <h2>Host a camera</h2>
+            <h2 id="host-dialog-title">Host a camera</h2>
             <p className="sheet-description">
               Turn your ocean view into a free surf camera.
             </p>

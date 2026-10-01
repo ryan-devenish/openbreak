@@ -63,7 +63,7 @@ export default function NominateSheet({ open, onClose, onNominate }: Props) {
   };
 
   return (
-    <dialog ref={dialogRef} className="sheet sheet-tall" onClose={handleClose}>
+    <dialog ref={dialogRef} className="sheet sheet-tall" onClose={handleClose} aria-labelledby="nominate-dialog-title">
       <div className="sheet-content">
         <button className="sheet-close" onClick={handleClose} aria-label="Close">
           ×
@@ -71,7 +71,7 @@ export default function NominateSheet({ open, onClose, onNominate }: Props) {
 
         {step === 'map' && (
           <div className="sheet-view">
-            <h2>Nominate a view</h2>
+            <h2 id="nominate-dialog-title">Nominate a view</h2>
             <p className="sheet-description">
               Drop a pin where a camera should be.
             </p>

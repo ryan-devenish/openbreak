@@ -27,13 +27,13 @@ export default function AdvertiseSheet({ open, onClose }: Props) {
   };
 
   return (
-    <dialog ref={dialogRef} className="sheet" onClose={handleClose}>
+    <dialog ref={dialogRef} className="sheet" onClose={handleClose} aria-labelledby="advertise-dialog-title">
       <div className="sheet-content">
         <button className="sheet-close" onClick={handleClose} aria-label="Close">
           ×
         </button>
         <div className="sheet-view">
-          <h2>Advertise near {CAMERA.name}</h2>
+          <h2 id="advertise-dialog-title">Advertise near {CAMERA.name}</h2>
           <p className="sheet-description">
             Reach surfers checking this break.
           </p>
