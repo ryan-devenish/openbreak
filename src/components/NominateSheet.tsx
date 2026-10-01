@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState, FormEvent } from 'react';
-import L from 'leaflet';
-import 'leaflet/dist/leaflet.css';
-import { CAMERA, type Nomination } from '../data/prototype';
+import { type Nomination } from '../data/prototype';
+import LocationPicker from './LocationPicker';
 
 interface Props {
   open: boolean;
@@ -91,7 +90,13 @@ export default function NominateSheet({ open, onClose, onNominate, onOpenHost }:
           <div className="sheet-view">
             <h2 id="nominate-dialog-title">Nominate a view</h2>
             <p className="sheet-description">Drop a pin where a camera should be.</p>
-            <NominationMap pin={pin} onPinChange={setPin} active={open && step === 'map'} />
+            <LocationPicker
+              pin={pin}
+              onPinChange={setPin}
+              active={open && step === 'map'}
+              label="View location"
+              hint="Drop a pin where a camera should be."
+            />
             <label htmlFor="nom-note" className="note-label">
               Why here? <span>(optional)</span>
             </label>
@@ -193,69 +198,3 @@ export default function NominateSheet({ open, onClose, onNominate, onOpenHost }:
   );
 }
 
-function NominationMap({ pin, onPinChange, active }: {
-  pin: { lat: number; lng: number } | null;
-  onPinChange: (pin: { lat: number; lng: number }) => void;
-  active: boolean;
-}) {
-  const mapRef = useRef<HTMLDivElement>(null);
-  const mapInstanceRef = useRef<L.Map | null>(null);
-  const markerRef = useRef<L.Marker | null>(null);
-
-  useEffect(() => {
-    if (!mapRef.current || mapInstanceRef.current) return;
-    const map = L.map(mapRef.current, {
-      center: [CAMERA.coordinates.lat, CAMERA.coordinates.lng],
-      zoom: 14,
-      zoomControl: true,
-      attributionControl: true,
-    });
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      maxZoom: 19,
-      attribution: '© OpenStreetMap',
-    }).addTo(map);
-    map.on('click', (e: L.LeafletMouseEvent) => onPinChange({ lat: e.latlng.lat, lng: e.latlng.lng }));
-    mapInstanceRef.current = map;
-    return () => {
-      map.remove();
-      mapInstanceRef.current = null;
-    };
-  }, [onPinChange]);
-
-  useEffect(() => {
-    const map = mapInstanceRef.current;
-    const node = mapRef.current;
-    if (!map || !node || !active) return;
-    const refresh = () => map.invalidateSize({ animate: false });
-    const frame = requestAnimationFrame(refresh);
-    const timeout = window.setTimeout(refresh, 300);
-    const observer = new ResizeObserver(refresh);
-    observer.observe(node);
-    return () => {
-      cancelAnimationFrame(frame);
-      window.clearTimeout(timeout);
-      observer.disconnect();
-    };
-  }, [active]);
-
-  useEffect(() => {
-    const map = mapInstanceRef.current;
-    if (!map) return;
-    if (markerRef.current) {
-      map.removeLayer(markerRef.current);
-      markerRef.current = null;
-    }
-    if (pin) {
-      markerRef.current = L.marker([pin.lat, pin.lng], {
-        icon: L.divIcon({ className: 'nomination-pin', html: '<div class="pin-dot"></div>', iconSize: [24, 24], iconAnchor: [12, 12] }),
-      }).addTo(map);
-    }
-  }, [pin]);
-
-  return (
-    <div className="nomination-map-container">
-      <div ref={mapRef} className="nomination-map" />
-      {!pin && <p className="map-hint">Tap to place a pin</p>}
-    </div>
-  );
-}
