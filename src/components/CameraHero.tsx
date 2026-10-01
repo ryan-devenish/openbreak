@@ -43,7 +43,7 @@ export default function CameraHero({ surfBreak, single = false }: Props) {
 
   const { camera, host } = surfBreak;
   const isLoaded = loaded[camera.id];
-  const statusLabel = camera.status === 'live' ? 'LIVE' : camera.status === 'offline' ? 'OFFLINE' : 'CAMERA PREVIEW';
+  const statusLabel = camera.status === 'live' ? 'LIVE' : camera.status === 'offline' ? 'OFFLINE' : 'PREVIEW';
   return (
     <section className={`camera-hero ${single ? 'camera-hero-single' : ''}`} aria-label={`${surfBreak.name} camera`}>
       <article className="camera-card"><div className="camera-viewport">
