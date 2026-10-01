@@ -8,7 +8,7 @@ interface Props {
 
 type Step = 'choice' | 'existing' | 'need' | 'success';
 
-interface FormData {
+interface HostFormData {
   url?: string;
   location: string;
   email: string;
@@ -17,7 +17,7 @@ interface FormData {
 export default function HostSheet({ open, onClose, initialLocation }: Props) {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const [step, setStep] = useState<Step>('choice');
-  const [formData, setFormData] = useState<FormData>({ location: '', email: '' });
+  const [formData, setFormData] = useState<HostFormData>({ location: '', email: '' });
 
   useEffect(() => {
     const dialog = dialogRef.current;
