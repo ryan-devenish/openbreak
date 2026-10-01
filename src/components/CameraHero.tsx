@@ -1,29 +1,5 @@
 import { useState } from 'react';
-import { IMAGES, CAMERA } from '../data/prototype';
-
-const CAMERAS = [
-  {
-    id: CAMERA.id,
-    name: CAMERA.name,
-    location: CAMERA.location,
-    image: IMAGES.camera,
-    host: 'Oceanfront Penthouse',
-  },
-  {
-    id: 'windansea-wide',
-    name: 'Windansea',
-    location: 'La Jolla, CA',
-    image: '/images/windansea-view.jpg',
-    host: 'Oceanfront Penthouse',
-  },
-  {
-    id: 'lahaina-view',
-    name: 'Pacific Beach',
-    location: 'San Diego, CA',
-    image: '/images/lahaina-business-view.webp',
-    host: 'Oceanfront Penthouse',
-  },
-];
+import type { SurfBreak } from '../data/breaks';
 
 function AirbnbMark() {
   return (
@@ -36,47 +12,46 @@ function AirbnbMark() {
   );
 }
 
-export default function CameraHero() {
-  const [loaded, setLoaded] = useState<Record<string, boolean>>({});
+interface Props {
+  surfBreak: SurfBreak;
+  single?: boolean;
+}
+
+export default function CameraHero({ surfBreak, single = false }: Props) {
+  const [loaded, setLoaded] = useState(false);
+  const { camera, host } = surfBreak;
+  const statusLabel = camera.status === 'live' ? 'LIVE' : camera.status === 'offline' ? 'OFFLINE' : 'CAMERA PREVIEW';
 
   return (
-    <section className="camera-hero" aria-label="OpenBreak camera views">
-      <div className="camera-carousel" role="region" aria-label="Surf camera carousel">
-        {CAMERAS.map((camera) => (
-          <article className="camera-card" key={camera.id}>
-            <div className="camera-viewport">
-              <img
-                src={camera.image}
-                alt={`${camera.name} surf camera view`}
-                className={`camera-image ${loaded[camera.id] ? 'loaded' : ''}`}
-                onLoad={() => setLoaded((prev) => ({ ...prev, [camera.id]: true }))}
-              />
+    <section className={`camera-hero ${single ? 'camera-hero-single' : ''}`} aria-label={`${surfBreak.name} camera`}>
+      <article className="camera-card">
+        <div className="camera-viewport">
+          {!loaded && <div className="camera-loading" aria-hidden="true" />}
+          <img
+            src={camera.image}
+            alt={`${surfBreak.name} surf camera view`}
+            className={`camera-image ${loaded ? 'loaded' : ''}`}
+            onLoad={() => setLoaded(true)}
+          />
 
-              <div className="live-pill" aria-label="Live camera">
-                <span className="live-dot" aria-hidden="true" />
-                <span>LIVE</span>
-              </div>
+          <div className={`live-pill ${camera.status !== 'live' ? 'camera-status-muted' : ''}`} aria-label={`Camera status: ${statusLabel}`}>
+            {camera.status === 'live' && <span className="live-dot" aria-hidden="true" />}
+            <span>{statusLabel}</span>
+          </div>
 
-              <button className="camera-play" type="button" aria-label={`Play ${camera.name} camera`}>
-                <span className="camera-play-icon" aria-hidden="true" />
-              </button>
-
-              <div className="camera-host-bug" aria-label="Camera hosted by Airbnb">
-                <AirbnbMark />
-                <span>Camera hosted by</span>
-                <strong>{camera.host}</strong>
-              </div>
-
-              <div className="camera-overlay">
-                <div className="camera-location">
-                  <strong>{camera.name.toUpperCase()}</strong>
-                  <span>{camera.location.toUpperCase()}</span>
-                </div>
-              </div>
-            </div>
-          </article>
-        ))}
-      </div>
+          <a
+            className="camera-host-bug"
+            href={host.url}
+            target="_blank"
+            rel="noreferrer nofollow"
+            aria-label={`Camera hosted by ${host.name}. View on ${host.provider}`}
+          >
+            {host.provider === 'Airbnb' && <AirbnbMark />}
+            <span>Camera hosted by</span>
+            <strong>{host.name}</strong>
+          </a>
+        </div>
+      </article>
     </section>
   );
 }
