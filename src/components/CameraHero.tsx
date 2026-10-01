@@ -48,7 +48,18 @@ export default function CameraHero({ surfBreak, single = false }: Props) {
     <section className={`camera-hero ${single ? 'camera-hero-single' : ''}`} aria-label={`${surfBreak.name} camera`}>
       <article className="camera-card"><div className="camera-viewport">
         {!isLoaded && <div className="camera-loading" aria-hidden="true" />}
-        <img src={camera.image} alt={`${surfBreak.name} surf camera view`} className={`camera-image ${isLoaded ? 'loaded' : ''}`} onLoad={() => setLoaded((prev) => ({ ...prev, [camera.id]: true }))} />
+        <video
+          className={`camera-image camera-video ${isLoaded ? 'loaded' : ''}`}
+          src="/video/236273_tiny%202.mp4"
+          poster={camera.image}
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          aria-label={`${surfBreak.name} demo surf camera view`}
+          onCanPlay={() => setLoaded((prev) => ({ ...prev, [camera.id]: true }))}
+        />
         <div className={`live-pill ${camera.status !== 'live' ? 'camera-status-muted' : ''}`} aria-label={`Camera status: ${statusLabel}`}>{camera.status === 'live' && <span className="live-dot" aria-hidden="true" />}<span>{statusLabel}</span></div>
         <a className="camera-host-bug camera-host-bug-break" href={host.url} target="_blank" rel="noreferrer nofollow" aria-label={`Camera hosted by ${host.name}. View on ${host.provider}`}>{host.provider === 'Airbnb' && <AirbnbMark />}<strong>{host.name}</strong></a>
       </div></article>
