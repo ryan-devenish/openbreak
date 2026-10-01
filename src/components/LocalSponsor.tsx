@@ -27,7 +27,7 @@ export default function LocalSponsor() {
 
         {SPONSOR.offer && (
           <div className="sponsor-offer">
-            <p className="offer-eyebrow">CONCEPT OFFER</p>
+            <p className="offer-eyebrow">LOCAL OFFER</p>
             <p className="offer-headline">Free drink</p>
             <p className="offer-detail">Mention OpenBreak*</p>
           </div>

@@ -13,9 +13,20 @@ export type SheetView = null | 'nominate' | 'host' | 'advertise';
 export default function App() {
   const [sheet, setSheet] = useState<SheetView>(null);
   const [nominations, setNominations] = useState<Nomination[]>([]);
+  const [hostLocation, setHostLocation] = useState<{ lat: number; lng: number } | undefined>();
 
   const handleNominate = (nomination: Nomination) => {
     setNominations((prev) => [...prev, nomination]);
+  };
+
+  const handleOpenHost = (location: { lat: number; lng: number }) => {
+    setHostLocation(location);
+    setSheet('host');
+  };
+
+  const handleCloseHost = () => {
+    setHostLocation(undefined);
+    setSheet(null);
   };
 
   return (
@@ -44,10 +55,12 @@ export default function App() {
         open={sheet === 'nominate'}
         onClose={() => setSheet(null)}
         onNominate={handleNominate}
+        onOpenHost={handleOpenHost}
       />
       <HostSheet
         open={sheet === 'host'}
-        onClose={() => setSheet(null)}
+        onClose={handleCloseHost}
+        initialLocation={hostLocation}
       />
       <AdvertiseSheet
         open={sheet === 'advertise'}

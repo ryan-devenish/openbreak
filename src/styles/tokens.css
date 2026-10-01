@@ -112,12 +112,24 @@
   --dialog-padding-desktop: 24px;
 
   /* ============================================
+   * ICONS
+   * ============================================ */
+
+  --icon-sm: 16px;
+  --icon-md: 20px;
+  --icon-lg: 24px;
+
+  /* ============================================
    * LAYOUT
    * ============================================ */
 
   --gutter-mobile: 16px;
   --gutter-desktop: 24px;
   --gutter-lg: 32px;
+
+  /* Container widths - camera intentionally wider than content */
+  --container-camera: 1200px;
+  --container-content: 960px;
   --content-max: 1000px;
 
   /* ============================================

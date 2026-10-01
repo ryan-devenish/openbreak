@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, FormEvent } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { CAMERA, type Nomination } from '../data/prototype';
@@ -7,17 +7,19 @@ interface Props {
   open: boolean;
   onClose: () => void;
   onNominate: (nomination: Nomination) => void;
+  onOpenHost?: (location: { lat: number; lng: number }) => void;
 }
 
-type Step = 'map' | 'success' | 'findHost';
+type Step = 'map' | 'success' | 'findHost' | 'intro' | 'introSuccess';
 
-export default function NominateSheet({ open, onClose, onNominate }: Props) {
+export default function NominateSheet({ open, onClose, onNominate, onOpenHost }: Props) {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const [step, setStep] = useState<Step>('map');
   const [pin, setPin] = useState<{ lat: number; lng: number } | null>(null);
   const [note, setNote] = useState('');
   const [relationship, setRelationship] = useState<string>('');
   const [canIntro, setCanIntro] = useState<string>('');
+  const [introEmail, setIntroEmail] = useState('');
 
   useEffect(() => {
     const dialog = dialogRef.current;
@@ -31,12 +33,17 @@ export default function NominateSheet({ open, onClose, onNominate }: Props) {
     }
   }, [open]);
 
-  const handleClose = () => {
+  const resetState = () => {
     setStep('map');
     setPin(null);
     setNote('');
     setRelationship('');
     setCanIntro('');
+    setIntroEmail('');
+  };
+
+  const handleClose = () => {
+    resetState();
     document.body.style.overflow = '';
     onClose();
   };
@@ -58,6 +65,33 @@ export default function NominateSheet({ open, onClose, onNominate }: Props) {
     setStep('findHost');
   };
 
+  const handleRelationshipSelect = (value: string) => {
+    setRelationship(value);
+    if (value === 'own' && pin && onOpenHost) {
+      handleClose();
+      onOpenHost(pin);
+    } else if (value === 'know') {
+      // Stay on page, show intro question
+    }
+  };
+
+  const handleIntroSelect = (value: string) => {
+    setCanIntro(value);
+    if (value === 'yes' || value === 'maybe') {
+      setStep('intro');
+    }
+  };
+
+  const handleIntroSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const form = e.currentTarget;
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+    setStep('introSuccess');
+  };
+
   const handleDone = () => {
     handleClose();
   };
@@ -65,8 +99,12 @@ export default function NominateSheet({ open, onClose, onNominate }: Props) {
   return (
     <dialog ref={dialogRef} className="sheet sheet-tall" onClose={handleClose} aria-labelledby="nominate-dialog-title">
       <div className="sheet-content">
-        <button className="sheet-close" onClick={handleClose} aria-label="Close">
-          ×
+        <button
+          className="icon-button sheet-close"
+          onClick={handleClose}
+          aria-label="Close"
+        >
+          <span aria-hidden="true">×</span>
         </button>
 
         {step === 'map' && (
@@ -115,86 +153,132 @@ export default function NominateSheet({ open, onClose, onNominate }: Props) {
           </div>
         )}
 
-        {step === 'findHost' && (
+        {step === 'findHost' && !relationship && (
           <div className="sheet-view">
             <button className="sheet-back" onClick={() => setStep('success')}>
               ← Back
             </button>
             <h2>Help us find a host</h2>
-            <fieldset>
-              <legend>Do you know or control a property with this view?</legend>
-              <label className="radio-label">
-                <input
-                  type="radio"
-                  name="relationship"
-                  value="own"
-                  checked={relationship === 'own'}
-                  onChange={(e) => setRelationship(e.target.value)}
-                />
-                I own/control it
-              </label>
-              <label className="radio-label">
-                <input
-                  type="radio"
-                  name="relationship"
-                  value="know"
-                  checked={relationship === 'know'}
-                  onChange={(e) => setRelationship(e.target.value)}
-                />
-                I know the owner
-              </label>
-              <label className="radio-label">
-                <input
-                  type="radio"
-                  name="relationship"
-                  value="no"
-                  checked={relationship === 'no'}
-                  onChange={(e) => setRelationship(e.target.value)}
-                />
-                No
-              </label>
-            </fieldset>
+            <p className="sheet-description">
+              Do you know or control a property with this view?
+            </p>
+            <div className="choice-group">
+              <button
+                type="button"
+                className="choice-row"
+                onClick={() => handleRelationshipSelect('own')}
+              >
+                <div className="choice-row-content">
+                  <span className="choice-row-label">I own or control it</span>
+                  <span className="choice-row-description">Express interest in hosting</span>
+                </div>
+                <span className="choice-row-arrow" aria-hidden="true">→</span>
+              </button>
+              <button
+                type="button"
+                className="choice-row"
+                onClick={() => handleRelationshipSelect('know')}
+              >
+                <div className="choice-row-content">
+                  <span className="choice-row-label">I know the owner</span>
+                  <span className="choice-row-description">Help us get in touch</span>
+                </div>
+                <span className="choice-row-arrow" aria-hidden="true">→</span>
+              </button>
+              <button
+                type="button"
+                className="choice-row"
+                onClick={handleDone}
+              >
+                <div className="choice-row-content">
+                  <span className="choice-row-label">No</span>
+                  <span className="choice-row-description">Thanks for nominating</span>
+                </div>
+                <span className="choice-row-arrow" aria-hidden="true">→</span>
+              </button>
+            </div>
+          </div>
+        )}
 
-            {relationship === 'know' && (
-              <fieldset>
-                <legend>Could you introduce us?</legend>
-                <label className="radio-label">
-                  <input
-                    type="radio"
-                    name="canIntro"
-                    value="yes"
-                    checked={canIntro === 'yes'}
-                    onChange={(e) => setCanIntro(e.target.value)}
-                  />
-                  Yes
-                </label>
-                <label className="radio-label">
-                  <input
-                    type="radio"
-                    name="canIntro"
-                    value="maybe"
-                    checked={canIntro === 'maybe'}
-                    onChange={(e) => setCanIntro(e.target.value)}
-                  />
-                  Maybe
-                </label>
-                <label className="radio-label">
-                  <input
-                    type="radio"
-                    name="canIntro"
-                    value="no"
-                    checked={canIntro === 'no'}
-                    onChange={(e) => setCanIntro(e.target.value)}
-                  />
-                  No
-                </label>
-              </fieldset>
-            )}
+        {step === 'findHost' && relationship === 'know' && !canIntro && (
+          <div className="sheet-view">
+            <button className="sheet-back" onClick={() => { setRelationship(''); }}>
+              ← Back
+            </button>
+            <h2>Help us connect</h2>
+            <p className="sheet-description">
+              Could you introduce us to the property owner?
+            </p>
+            <div className="choice-group">
+              <button
+                type="button"
+                className="choice-row"
+                onClick={() => handleIntroSelect('yes')}
+              >
+                <span className="choice-row-label">Yes, I can introduce you</span>
+                <span className="choice-row-arrow" aria-hidden="true">→</span>
+              </button>
+              <button
+                type="button"
+                className="choice-row"
+                onClick={() => handleIntroSelect('maybe')}
+              >
+                <span className="choice-row-label">Maybe</span>
+                <span className="choice-row-arrow" aria-hidden="true">→</span>
+              </button>
+              <button
+                type="button"
+                className="choice-row"
+                onClick={handleDone}
+              >
+                <span className="choice-row-label">No</span>
+                <span className="choice-row-arrow" aria-hidden="true">→</span>
+              </button>
+            </div>
+          </div>
+        )}
 
+        {step === 'intro' && (
+          <div className="sheet-view">
+            <button className="sheet-back" onClick={() => { setStep('findHost'); setCanIntro(''); }}>
+              ← Back
+            </button>
+            <h2>Help us connect</h2>
+            <p className="sheet-description">
+              Leave your email and we'll reach out about making an introduction.
+            </p>
+            <form onSubmit={handleIntroSubmit}>
+              <label htmlFor="intro-email">Your email</label>
+              <input
+                id="intro-email"
+                name="email"
+                type="email"
+                placeholder="you@example.com"
+                value={introEmail}
+                onChange={(e) => setIntroEmail(e.target.value)}
+                maxLength={254}
+                required
+              />
+              <button className="primary-button" type="submit">
+                Submit
+              </button>
+              <p className="form-note">Preview only. Submissions are not sent yet.</p>
+            </form>
+          </div>
+        )}
+
+        {step === 'introSuccess' && (
+          <div className="sheet-view sheet-success">
+            <p className="success-label">RECEIVED</p>
+            <p className="success-message">
+              Thanks — we'll be in touch about making an introduction.
+            </p>
+            <p className="form-note" style={{ marginBottom: 'var(--space-6)' }}>
+              Preview only. Nothing was actually submitted.
+            </p>
             <button className="primary-button" onClick={handleDone}>
               Done
             </button>
-            <p className="form-note">Preview only. Responses are not sent yet.</p>
           </div>
         )}
       </div>
