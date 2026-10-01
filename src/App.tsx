@@ -14,7 +14,6 @@ function HomePage() {
   const [sheet, setSheet] = useState<SheetView>(null);
   const [nominations, setNominations] = useState<Nomination[]>([]);
   const [hostLocation, setHostLocation] = useState<{ lat: number; lng: number } | undefined>();
-  const windansea = getBreakBySlug('windansea')!;
 
   const handleNominate = (nomination: Nomination) => {
     setNominations((prev) => [...prev, nomination]);
@@ -32,11 +31,10 @@ function HomePage() {
         <h1>Free surf cams.<br />No paywall.</h1>
       </header>
 
-      <CameraHero surfBreak={windansea} />
+      <CameraHero />
 
       <div className="page-content">
         <div className="info-band" />
-        <a className="break-entry" href="/break/windansea">Open Windansea camera →</a>
         <NetworkGrowth onAction={setSheet} />
 
         <footer>
