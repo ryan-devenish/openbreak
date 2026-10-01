@@ -1,12 +1,5 @@
 import { useState } from 'react';
-import type { SurfBreak } from '../data/breaks';
-import { IMAGES, CAMERA } from '../data/prototype';
-
-const HOME_CAMERAS = [
-  { id: CAMERA.id, name: CAMERA.name, location: CAMERA.location, image: IMAGES.camera, host: 'Oceanfront Penthouse', href: '/break/windansea' },
-  { id: 'windansea-wide', name: 'Windansea', location: 'La Jolla, CA', image: '/images/windansea-view.jpg', host: 'Oceanfront Penthouse', href: '/break/windansea' },
-  { id: 'lahaina-view', name: 'Pacific Beach', location: 'San Diego, CA', image: '/images/lahaina-business-view.webp', host: 'Oceanfront Penthouse', href: '/break/windansea' },
-];
+import { BREAKS, type SurfBreak } from '../data/breaks';
 
 function AirbnbMark() {
   return (
@@ -18,6 +11,11 @@ function AirbnbMark() {
 
 interface Props { surfBreak?: SurfBreak; single?: boolean; }
 
+function statusLabel(surfBreak: SurfBreak) {
+  if (surfBreak.camera.status === 'coming-soon') return 'COMING SOON';
+  return surfBreak.camera.status.toUpperCase();
+}
+
 export default function CameraHero({ surfBreak, single = false }: Props) {
   const [loaded, setLoaded] = useState<Record<string, boolean>>({});
 
@@ -25,14 +23,17 @@ export default function CameraHero({ surfBreak, single = false }: Props) {
     return (
       <section className="camera-hero" aria-label="OpenBreak camera views">
         <div className="camera-carousel" role="region" aria-label="Surf camera carousel">
-          {HOME_CAMERAS.map((camera) => (
-            <article className="camera-card" key={camera.id}>
+          {BREAKS.map((item) => (
+            <article className="camera-card" key={item.camera.id}>
               <div className="camera-viewport">
-                <img src={camera.image} alt={`${camera.name} surf camera view`} className={`camera-image ${loaded[camera.id] ? 'loaded' : ''}`} onLoad={() => setLoaded((prev) => ({ ...prev, [camera.id]: true }))} />
-                <div className="live-pill" aria-label="Live camera"><span className="live-dot" aria-hidden="true" /><span>LIVE</span></div>
-                <a className="camera-play" href={camera.href} aria-label={`Open ${camera.name} camera`}><span className="camera-play-icon" aria-hidden="true" /></a>
-                <div className="camera-host-bug camera-host-bug-static" aria-label="Camera hosted by Airbnb"><AirbnbMark /><span>Camera hosted by</span><strong>{camera.host}</strong></div>
-                <div className="camera-overlay"><div className="camera-location"><strong>{camera.name.toUpperCase()}</strong><span>{camera.location.toUpperCase()}</span></div></div>
+                <img src={item.camera.image} alt={`${item.name} surf camera preview`} className={`camera-image ${loaded[item.camera.id] ? 'loaded' : ''}`} onLoad={() => setLoaded((prev) => ({ ...prev, [item.camera.id]: true }))} />
+                <div className={`live-pill ${item.camera.status !== 'live' ? 'camera-status-muted' : ''}`} aria-label={`Camera status: ${statusLabel(item)}`}>
+                  {item.camera.status === 'live' && <span className="live-dot" aria-hidden="true" />}
+                  <span>{statusLabel(item)}</span>
+                </div>
+                <a className="camera-play" href={`/break/${item.slug}`} aria-label={`Open ${item.name} camera`}><span className="camera-play-icon" aria-hidden="true" /></a>
+                <div className="camera-host-bug camera-host-bug-static" aria-label={`Camera hosted by ${item.host.name}`}><AirbnbMark /><span>Camera hosted by</span><strong>{item.host.name}</strong></div>
+                <div className="camera-overlay"><div className="camera-location"><strong>{item.name.toUpperCase()}</strong><span>{item.location.toUpperCase()}</span></div></div>
               </div>
             </article>
           ))}
@@ -43,7 +44,7 @@ export default function CameraHero({ surfBreak, single = false }: Props) {
 
   const { camera, host } = surfBreak;
   const isLoaded = loaded[camera.id];
-  const statusLabel = camera.status === 'live' ? 'LIVE' : camera.status === 'offline' ? 'OFFLINE' : 'PREVIEW';
+  const label = statusLabel(surfBreak);
   return (
     <section className={`camera-hero ${single ? 'camera-hero-single' : ''}`} aria-label={`${surfBreak.name} camera`}>
       <article className="camera-card"><div className="camera-viewport">
@@ -60,7 +61,7 @@ export default function CameraHero({ surfBreak, single = false }: Props) {
           aria-label={`${surfBreak.name} demo surf camera view`}
           onCanPlay={() => setLoaded((prev) => ({ ...prev, [camera.id]: true }))}
         />
-        <div className={`live-pill ${camera.status !== 'live' ? 'camera-status-muted' : ''}`} aria-label={`Camera status: ${statusLabel}`}>{camera.status === 'live' && <span className="live-dot" aria-hidden="true" />}<span>{statusLabel}</span></div>
+        <div className={`live-pill ${camera.status !== 'live' ? 'camera-status-muted' : ''}`} aria-label={`Camera status: ${label}`}>{camera.status === 'live' && <span className="live-dot" aria-hidden="true" />}<span>{label}</span></div>
         <a className="camera-host-bug camera-host-bug-break" href={host.url} target="_blank" rel="noreferrer nofollow" aria-label={`Camera hosted by ${host.name}. View on ${host.provider}`}>{host.provider === 'Airbnb' && <AirbnbMark />}<strong>{host.name}</strong></a>
       </div></article>
     </section>
