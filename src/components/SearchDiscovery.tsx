@@ -13,6 +13,7 @@ interface Props {
 export default function SearchDiscovery({ open, onClose }: Props) {
   const [query, setQuery] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
+  const closeRef = useRef<HTMLButtonElement>(null);
   const results = useMemo(() => searchDiscovery(query), [query]);
   const recentBreaks = getRecentlyViewedBreakSlugs()
     .map((slug) => BREAKS.find((surfBreak) => surfBreak.slug === slug))
@@ -21,17 +22,33 @@ export default function SearchDiscovery({ open, onClose }: Props) {
   useEffect(() => {
     if (!open) return;
     const previousOverflow = document.body.style.overflow;
+    const previouslyFocused = document.activeElement instanceof HTMLElement ? document.activeElement : null;
     document.body.style.overflow = 'hidden';
     window.setTimeout(() => inputRef.current?.focus(), 0);
     return () => {
       document.body.style.overflow = previousOverflow;
+      previouslyFocused?.focus();
     };
   }, [open]);
 
   useEffect(() => {
     if (!open) return;
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') onClose();
+      if (event.key === 'Escape') {
+        onClose();
+        return;
+      }
+      if (event.key !== 'Tab') return;
+      const first = inputRef.current;
+      const last = closeRef.current;
+      if (!first || !last) return;
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
@@ -50,7 +67,7 @@ export default function SearchDiscovery({ open, onClose }: Props) {
       <div className="search-discovery-shell">
         <header className="search-discovery-header">
           <a className="logo logo-link" href="/">OPENBREAK</a>
-          <button type="button" className="search-close" onClick={onClose}>Close</button>
+          <button ref={closeRef} type="button" className="search-close" onClick={onClose}>Close</button>
         </header>
 
         <form className="search-form" role="search" onSubmit={(event) => event.preventDefault()}>
