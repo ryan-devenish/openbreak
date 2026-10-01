@@ -91,6 +91,13 @@ footer p { font-size:var(--text-xs); color:var(--color-muted-light); margin:0; t
 .host-inline > span:first-child { font-size:var(--text-xs); color:var(--color-muted); }
 .host-inline strong { margin-top:2px; font-size:var(--text-md); }
 .host-inline-provider { margin-top:var(--space-2); font-size:var(--text-sm); color:var(--color-muted); }
+.host-inline-promoted { display:grid; grid-template-columns:96px minmax(0,1fr); gap:var(--space-4); padding:0; overflow:hidden; }
+.host-inline-image { width:96px; height:100%; min-height:128px; object-fit:cover; }
+.host-inline-copy { display:flex; flex-direction:column; justify-content:center; padding:var(--space-4) var(--space-4) var(--space-4) 0; }
+.host-inline-kicker { font-size:var(--text-xs); color:var(--color-muted); }
+.host-inline-copy strong { font-size:var(--text-lg); line-height:1.25; }
+.host-inline-endorsement { margin-top:var(--space-2); color:var(--color-text); font-size:var(--text-sm); line-height:1.4; }
+.host-inline-provider { font-weight:var(--weight-medium); }
 .network-growth-compact { padding-top:var(--space-8); }
 
 .sheet { position:fixed; inset:auto 0 0; width:100%; max-width:100%; height:auto; max-height:calc(100dvh - max(var(--space-8), env(safe-area-inset-top))); margin:0; padding:0; border:none; border-radius:var(--radius-2xl) var(--radius-2xl) 0 0; background:var(--color-surface); box-shadow:var(--shadow-dialog); overflow-y:auto; overscroll-behavior:contain; }
@@ -171,7 +178,7 @@ footer p { font-size:var(--text-xs); color:var(--color-muted-light); margin:0; t
   .break-header, .break-intro { padding-left:var(--gutter-desktop); padding-right:var(--gutter-desktop); }
   .camera-hero { padding-left:var(--gutter-desktop); padding-right:var(--gutter-desktop); }
   .break-content { padding-left:var(--gutter-desktop); padding-right:var(--gutter-desktop); }
-  .camera-context { grid-template-columns:minmax(0,1fr) minmax(260px,320px); align-items:start; }
+  .camera-context { grid-template-columns:minmax(0,1fr) minmax(280px,360px); align-items:start; }
 }
 
 @media (min-width: 960px) {
