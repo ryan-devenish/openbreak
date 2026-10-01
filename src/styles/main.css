@@ -107,6 +107,10 @@ footer p { font-size:var(--text-xs); color:var(--color-muted-light); margin:0; t
 .secondary-action:hover { background:var(--color-surface-raised); }
 .nomination-success > .primary-button { margin-top: 0; }
 .success-note { margin-bottom: var(--space-5); }
+.location-picker { margin-top:var(--space-3); }
+.location-picker-heading { margin-bottom:var(--space-2); }
+.location-picker-label { display:block; font-size:var(--text-sm); font-weight:var(--weight-medium); }
+.location-picker-heading .field-hint { margin-top:var(--space-1); }
 .nomination-map-container { position:relative; margin-bottom:var(--space-4); }
 .nomination-map { width:100%; height:220px; border-radius:var(--radius-lg); overflow:hidden; background:var(--color-border); }
 .nomination-map .leaflet-container { width:100%; height:100%; }
