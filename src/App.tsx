@@ -1,17 +1,20 @@
 import { useState } from 'react';
 import CameraHero from './components/CameraHero';
+import BreakPage from './components/BreakPage';
 import NetworkGrowth from './components/NetworkGrowth';
 import NominateSheet from './components/NominateSheet';
 import HostSheet from './components/HostSheet';
 import AdvertiseSheet from './components/AdvertiseSheet';
+import { getBreakBySlug } from './data/breaks';
 import type { Nomination } from './data/prototype';
 
 export type SheetView = null | 'nominate' | 'host' | 'advertise';
 
-export default function App() {
+function HomePage() {
   const [sheet, setSheet] = useState<SheetView>(null);
   const [nominations, setNominations] = useState<Nomination[]>([]);
   const [hostLocation, setHostLocation] = useState<{ lat: number; lng: number } | undefined>();
+  const windansea = getBreakBySlug('windansea')!;
 
   const handleNominate = (nomination: Nomination) => {
     setNominations((prev) => [...prev, nomination]);
@@ -22,11 +25,6 @@ export default function App() {
     setSheet('host');
   };
 
-  const handleCloseHost = () => {
-    setHostLocation(undefined);
-    setSheet(null);
-  };
-
   return (
     <main className="page">
       <header className="site-header">
@@ -34,11 +32,11 @@ export default function App() {
         <h1>Free surf cams.<br />No paywall.</h1>
       </header>
 
-      <CameraHero />
+      <CameraHero surfBreak={windansea} />
 
       <div className="page-content">
-        <div className="info-band">
-        </div>
+        <div className="info-band" />
+        <a className="break-entry" href="/break/windansea">Open Windansea camera →</a>
         <NetworkGrowth onAction={setSheet} />
 
         <footer>
@@ -55,13 +53,23 @@ export default function App() {
       />
       <HostSheet
         open={sheet === 'host'}
-        onClose={handleCloseHost}
+        onClose={() => {
+          setHostLocation(undefined);
+          setSheet(null);
+        }}
         initialLocation={hostLocation}
       />
-      <AdvertiseSheet
-        open={sheet === 'advertise'}
-        onClose={() => setSheet(null)}
-      />
+      <AdvertiseSheet open={sheet === 'advertise'} onClose={() => setSheet(null)} />
     </main>
   );
+}
+
+export default function App() {
+  const match = window.location.pathname.match(/^\/break\/([^/]+)\/?$/);
+  if (match) {
+    const surfBreak = getBreakBySlug(match[1]);
+    if (surfBreak) return <BreakPage surfBreak={surfBreak} />;
+  }
+
+  return <HomePage />;
 }
