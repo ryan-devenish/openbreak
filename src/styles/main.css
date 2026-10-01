@@ -157,8 +157,8 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  min-height: 34px;
-  padding: 0 13px;
+  min-height: 28px;
+  padding: 0 9px;
   border-radius: var(--radius-pill);
   background: rgba(20, 20, 20, 0.72);
   color: #fff;
