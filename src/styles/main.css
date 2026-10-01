@@ -113,7 +113,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   scroll-snap-type: x mandatory;
   scrollbar-width: none;
   padding: 0 var(--gutter-mobile) var(--space-2);
-  scroll-padding-inline: var(--gutter-mobile);
+  scroll-padding-inline: calc(var(--gutter-mobile) + 14px);
 }
 
 .camera-carousel::-webkit-scrollbar {
@@ -121,9 +121,9 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 }
 
 .camera-card {
-  flex: 0 0 calc(100% - 56px);
-  max-width: 720px;
-  scroll-snap-align: start;
+  flex: 0 0 calc(100% - 28px);
+  max-width: 760px;
+  scroll-snap-align: center;
 }
 
 .camera-viewport {
