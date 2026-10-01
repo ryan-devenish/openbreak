@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import CameraHero from './CameraHero';
 import NetworkGrowth from './NetworkGrowth';
 import NominateSheet from './NominateSheet';
 import HostSheet from './HostSheet';
 import AdvertiseSheet from './AdvertiseSheet';
 import type { SurfBreak } from '../data/breaks';
+import { recordRecentlyViewedBreak } from '../data/recent';
 import type { Nomination } from '../data/prototype';
 import type { SheetView } from '../App';
 
@@ -24,6 +25,10 @@ export default function BreakPage({ surfBreak }: Props) {
   const [sheet, setSheet] = useState<SheetView>(null);
   const [nominations, setNominations] = useState<Nomination[]>([]);
   const [hostLocation, setHostLocation] = useState<{ lat: number; lng: number } | undefined>();
+
+  useEffect(() => {
+    recordRecentlyViewedBreak(surfBreak.slug);
+  }, [surfBreak.slug]);
 
   const handleNominate = (nomination: Nomination) => {
     setNominations((prev) => [...prev, nomination]);
@@ -56,7 +61,7 @@ export default function BreakPage({ surfBreak }: Props) {
     <main className="page break-page">
       <header className="break-header">
         <a className="logo logo-link" href="/" aria-label="OpenBreak home">OPENBREAK</a>
-        <a className="browse-link" href="/">Browse</a>
+        <a className="browse-link" href="/browse">Browse</a>
       </header>
 
       <section className="break-intro" aria-labelledby="break-title">
