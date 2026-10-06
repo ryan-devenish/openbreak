@@ -1,0 +1,348 @@
+{
+  "schema_version": 1,
+  "updated_at": "2026-10-06T00:00:00Z",
+  "spots": [
+    {
+      "id": "windansea",
+      "slug": "windansea",
+      "name": "Windansea",
+      "locality": "La Jolla",
+      "region": "California",
+      "country": "USA",
+      "latitude": 32.8305,
+      "longitude": -117.2842,
+      "aliases": [
+        "Windansea Beach"
+      ],
+      "cameras": [
+        {
+          "id": "windansea-placeholder",
+          "name": "Main",
+          "provider": "Pending",
+          "playback_type": "external",
+          "playback_url": null,
+          "source_url": null,
+          "attribution": "Camera source pending approval",
+          "enabled": false
+        }
+      ]
+    },
+    {
+      "id": "blacks",
+      "slug": "blacks",
+      "name": "Blacks Beach",
+      "locality": "La Jolla",
+      "region": "California",
+      "country": "USA",
+      "latitude": 32.8867,
+      "longitude": -117.2528,
+      "aliases": [
+        "Black's",
+        "Black's Beach"
+      ],
+      "cameras": [
+        {
+          "id": "blacks-placeholder",
+          "name": "Main",
+          "provider": "Pending",
+          "playback_type": "external",
+          "playback_url": null,
+          "source_url": null,
+          "attribution": "Camera source pending approval",
+          "enabled": false
+        }
+      ]
+    },
+    {
+      "id": "scripps",
+      "slug": "scripps",
+      "name": "Scripps Pier",
+      "locality": "La Jolla",
+      "region": "California",
+      "country": "USA",
+      "latitude": 32.8662,
+      "longitude": -117.2546,
+      "aliases": [
+        "Scripps",
+        "Scripps Beach"
+      ],
+      "cameras": [
+        {
+          "id": "scripps-placeholder",
+          "name": "Main",
+          "provider": "Pending",
+          "playback_type": "external",
+          "playback_url": null,
+          "source_url": null,
+          "attribution": "Camera source pending approval",
+          "enabled": false
+        }
+      ]
+    },
+    {
+      "id": "la-jolla-shores",
+      "slug": "la-jolla-shores",
+      "name": "La Jolla Shores",
+      "locality": "La Jolla",
+      "region": "California",
+      "country": "USA",
+      "latitude": 32.8569,
+      "longitude": -117.2571,
+      "aliases": [
+        "Shores",
+        "LJ Shores"
+      ],
+      "cameras": [
+        {
+          "id": "ljs-placeholder",
+          "name": "Main",
+          "provider": "Pending",
+          "playback_type": "external",
+          "playback_url": null,
+          "source_url": null,
+          "attribution": "Camera source pending approval",
+          "enabled": false
+        }
+      ]
+    },
+    {
+      "id": "tourmaline",
+      "slug": "tourmaline",
+      "name": "Tourmaline",
+      "locality": "Pacific Beach",
+      "region": "California",
+      "country": "USA",
+      "latitude": 32.8053,
+      "longitude": -117.2656,
+      "aliases": [
+        "Tourmaline Surf Park",
+        "Tourmo"
+      ],
+      "cameras": [
+        {
+          "id": "tourmaline-placeholder",
+          "name": "Main",
+          "provider": "Pending",
+          "playback_type": "external",
+          "playback_url": null,
+          "source_url": null,
+          "attribution": "Camera source pending approval",
+          "enabled": false
+        }
+      ]
+    },
+    {
+      "id": "pacific-beach",
+      "slug": "pacific-beach",
+      "name": "Pacific Beach",
+      "locality": "Pacific Beach",
+      "region": "California",
+      "country": "USA",
+      "latitude": 32.7947,
+      "longitude": -117.2566,
+      "aliases": [
+        "PB",
+        "Crystal Pier"
+      ],
+      "cameras": [
+        {
+          "id": "pb-placeholder",
+          "name": "Main",
+          "provider": "Pending",
+          "playback_type": "external",
+          "playback_url": null,
+          "source_url": null,
+          "attribution": "Camera source pending approval",
+          "enabled": false
+        }
+      ]
+    },
+    {
+      "id": "ocean-beach-sd",
+      "slug": "ocean-beach-sd",
+      "name": "Ocean Beach",
+      "locality": "Ocean Beach",
+      "region": "California",
+      "country": "USA",
+      "latitude": 32.7497,
+      "longitude": -117.2507,
+      "aliases": [
+        "OB",
+        "Ocean Beach Pier"
+      ],
+      "cameras": [
+        {
+          "id": "ocean-beach-sd-placeholder",
+          "name": "Main",
+          "provider": "Pending",
+          "playback_type": "external",
+          "playback_url": null,
+          "source_url": null,
+          "attribution": "Camera source pending approval",
+          "enabled": false
+        }
+      ]
+    },
+    {
+      "id": "del-mar",
+      "slug": "del-mar",
+      "name": "Del Mar",
+      "locality": "Del Mar",
+      "region": "California",
+      "country": "USA",
+      "latitude": 32.9594,
+      "longitude": -117.2653,
+      "aliases": [
+        "Del Mar Beach",
+        "15th Street"
+      ],
+      "cameras": [
+        {
+          "id": "delmar-placeholder",
+          "name": "Main",
+          "provider": "Pending",
+          "playback_type": "external",
+          "playback_url": null,
+          "source_url": null,
+          "attribution": "Camera source pending approval",
+          "enabled": false
+        }
+      ]
+    },
+    {
+      "id": "cardiff-reef",
+      "slug": "cardiff-reef",
+      "name": "Cardiff Reef",
+      "locality": "Cardiff-by-the-Sea",
+      "region": "California",
+      "country": "USA",
+      "latitude": 33.022,
+      "longitude": -117.283,
+      "aliases": [
+        "Cardiff",
+        "George's",
+        "Pipes"
+      ],
+      "cameras": [
+        {
+          "id": "cardiff-placeholder",
+          "name": "Main",
+          "provider": "Pending",
+          "playback_type": "external",
+          "playback_url": null,
+          "source_url": null,
+          "attribution": "Camera source pending approval",
+          "enabled": false
+        }
+      ]
+    },
+    {
+      "id": "oceanside",
+      "slug": "oceanside",
+      "name": "Oceanside Pier",
+      "locality": "Oceanside",
+      "region": "California",
+      "country": "USA",
+      "latitude": 33.1934,
+      "longitude": -117.3856,
+      "aliases": [
+        "Oceanside",
+        "O-Side"
+      ],
+      "cameras": [
+        {
+          "id": "oceanside-placeholder",
+          "name": "Main",
+          "provider": "Pending",
+          "playback_type": "external",
+          "playback_url": null,
+          "source_url": null,
+          "attribution": "Camera source pending approval",
+          "enabled": false
+        }
+      ]
+    },
+    {
+      "id": "trestles",
+      "slug": "trestles",
+      "name": "Trestles",
+      "locality": "San Clemente",
+      "region": "California",
+      "country": "USA",
+      "latitude": 33.3833,
+      "longitude": -117.5892,
+      "aliases": [
+        "Lowers",
+        "Uppers",
+        "Lower Trestles",
+        "Upper Trestles"
+      ],
+      "cameras": [
+        {
+          "id": "trestles-placeholder",
+          "name": "Main",
+          "provider": "Pending",
+          "playback_type": "external",
+          "playback_url": null,
+          "source_url": null,
+          "attribution": "Camera source pending approval",
+          "enabled": false
+        }
+      ]
+    },
+    {
+      "id": "huntington-beach",
+      "slug": "huntington-beach",
+      "name": "Huntington Beach",
+      "locality": "Huntington Beach",
+      "region": "California",
+      "country": "USA",
+      "latitude": 33.6553,
+      "longitude": -118.0044,
+      "aliases": [
+        "HB",
+        "Surf City",
+        "Huntington Pier"
+      ],
+      "cameras": [
+        {
+          "id": "huntington-city-pier-youtube",
+          "name": "Huntington Beach Pier",
+          "provider": "City of Huntington Beach",
+          "playback_type": "youtube",
+          "playback_url": "https://www.youtube.com/watch?v=mhQjsLBfOoY",
+          "source_url": "https://www.youtube.com/watch?v=mhQjsLBfOoY",
+          "attribution": "Official City of Huntington Beach YouTube live stream",
+          "enabled": true
+        }
+      ]
+    },
+    {
+      "id": "malibu",
+      "slug": "malibu",
+      "name": "Malibu",
+      "locality": "Malibu",
+      "region": "California",
+      "country": "USA",
+      "latitude": 34.0368,
+      "longitude": -118.6778,
+      "aliases": [
+        "First Point",
+        "Surfrider Beach",
+        "Malibu Pier"
+      ],
+      "cameras": [
+        {
+          "id": "malibu-placeholder",
+          "name": "Main",
+          "provider": "Pending",
+          "playback_type": "external",
+          "playback_url": null,
+          "source_url": null,
+          "attribution": "Camera source pending approval",
+          "enabled": false
+        }
+      ]
+    }
+  ]
+}
