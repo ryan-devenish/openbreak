@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-06T17:30:00Z",
+  "updated_at": "2026-10-06T18:05:00Z",
   "spots": [
     {
       "id": "windansea",
@@ -392,8 +392,8 @@
           "playback_type": "youtube",
           "playback_url": "https://www.youtube.com/watch?v=2kbj3LqB_20",
           "source_url": "https://www.youtube.com/watch?v=2kbj3LqB_20",
-          "attribution": "Official City of Redondo Beach Pier live stream",
-          "enabled": true
+          "attribution": "Official City of Redondo Beach Pier stream — current YouTube recording unavailable",
+          "enabled": false
         }
       ]
     },
@@ -418,9 +418,9 @@
           "provider": "Good Stuff Restaurants",
           "playback_type": "youtube",
           "playback_url": "https://www.youtube.com/watch?v=Jwna-J3L0NM",
-          "source_url": "https://www.youtube.com/watch?v=Jwna-J3L0NM",
-          "attribution": "24/7 Hermosa Beach Strand live stream by Good Stuff Restaurants",
-          "enabled": true
+          "source_url": "https://eatgoodstuff.com/strandcam/",
+          "attribution": "Good Stuff Restaurants StrandCam — temporarily offline",
+          "enabled": false
         }
       ]
     },
@@ -440,13 +440,13 @@
       ],
       "cameras": [
         {
-          "id": "pacifica-chamberlin-youtube",
-          "name": "Pacifica Pier & Beach",
+          "id": "pacifica-sharp-park-youtube",
+          "name": "Sharp Park Beach",
           "provider": "Chamberlin Nature",
           "playback_type": "youtube",
-          "playback_url": "https://www.youtube.com/watch?v=yLJCR5TlHoI",
-          "source_url": "https://www.youtube.com/watch?v=yLJCR5TlHoI",
-          "attribution": "Live Pacifica Pier and Sharp Park Beach stream by Chamberlin Nature",
+          "playback_url": "https://www.youtube.com/watch?v=lmec_rcEIL4",
+          "source_url": "https://www.pacificaview.net/livecam/",
+          "attribution": "Current Sharp Park Beach live stream by Chamberlin Nature",
           "enabled": true
         }
       ]
