@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-06T00:00:00Z",
+  "updated_at": "2026-10-06T17:30:00Z",
   "spots": [
     {
       "id": "windansea",
@@ -341,6 +341,113 @@
           "source_url": null,
           "attribution": "Camera source pending approval",
           "enabled": false
+        }
+      ]
+    },
+    {
+      "id": "san-clemente-pier",
+      "slug": "san-clemente-pier",
+      "name": "San Clemente Pier",
+      "locality": "San Clemente",
+      "region": "California",
+      "country": "USA",
+      "latitude": 33.4183621,
+      "longitude": -117.6219929,
+      "aliases": [
+        "San Clemente",
+        "SC Pier",
+        "Pier Bowl"
+      ],
+      "cameras": [
+        {
+          "id": "san-clemente-city-youtube",
+          "name": "Beach Camera",
+          "provider": "City of San Clemente",
+          "playback_type": "youtube",
+          "playback_url": "https://www.youtube.com/watch?v=2c7NV66YzKA",
+          "source_url": "https://www.sanclemente.gov/322/Beach-Camera-Live-Weather-Links",
+          "attribution": "Official City of San Clemente beach camera",
+          "enabled": true
+        }
+      ]
+    },
+    {
+      "id": "redondo-beach-pier",
+      "slug": "redondo-beach-pier",
+      "name": "Redondo Beach Pier",
+      "locality": "Redondo Beach",
+      "region": "California",
+      "country": "USA",
+      "latitude": 33.8397,
+      "longitude": -118.38998,
+      "aliases": [
+        "Redondo",
+        "Redondo Pier"
+      ],
+      "cameras": [
+        {
+          "id": "redondo-city-pier-youtube",
+          "name": "Pier Camera",
+          "provider": "City of Redondo Beach",
+          "playback_type": "youtube",
+          "playback_url": "https://www.youtube.com/watch?v=2kbj3LqB_20",
+          "source_url": "https://www.youtube.com/watch?v=2kbj3LqB_20",
+          "attribution": "Official City of Redondo Beach Pier live stream",
+          "enabled": true
+        }
+      ]
+    },
+    {
+      "id": "hermosa-beach",
+      "slug": "hermosa-beach",
+      "name": "Hermosa Beach",
+      "locality": "Hermosa Beach",
+      "region": "California",
+      "country": "USA",
+      "latitude": 33.86171,
+      "longitude": -118.40274,
+      "aliases": [
+        "Hermosa",
+        "Hermosa Beach Pier",
+        "The Strand"
+      ],
+      "cameras": [
+        {
+          "id": "hermosa-good-stuff-youtube",
+          "name": "Strand Camera",
+          "provider": "Good Stuff Restaurants",
+          "playback_type": "youtube",
+          "playback_url": "https://www.youtube.com/watch?v=Jwna-J3L0NM",
+          "source_url": "https://www.youtube.com/watch?v=Jwna-J3L0NM",
+          "attribution": "24/7 Hermosa Beach Strand live stream by Good Stuff Restaurants",
+          "enabled": true
+        }
+      ]
+    },
+    {
+      "id": "sharp-park-pacifica",
+      "slug": "sharp-park-pacifica",
+      "name": "Sharp Park",
+      "locality": "Pacifica",
+      "region": "California",
+      "country": "USA",
+      "latitude": 37.6324357,
+      "longitude": -122.494697,
+      "aliases": [
+        "Pacifica",
+        "Pacifica Pier",
+        "Sharp Park Beach"
+      ],
+      "cameras": [
+        {
+          "id": "pacifica-chamberlin-youtube",
+          "name": "Pacifica Pier & Beach",
+          "provider": "Chamberlin Nature",
+          "playback_type": "youtube",
+          "playback_url": "https://www.youtube.com/watch?v=yLJCR5TlHoI",
+          "source_url": "https://www.youtube.com/watch?v=yLJCR5TlHoI",
+          "attribution": "Live Pacifica Pier and Sharp Park Beach stream by Chamberlin Nature",
+          "enabled": true
         }
       ]
     }
