@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-06T18:05:00Z",
+  "updated_at": "2026-10-06T23:00:00Z",
   "spots": [
     {
       "id": "windansea",
@@ -68,14 +68,14 @@
       ],
       "cameras": [
         {
-          "id": "scripps-placeholder",
-          "name": "Main",
-          "provider": "Pending",
-          "playback_type": "external",
-          "playback_url": null,
-          "source_url": null,
-          "attribution": "Camera source pending approval",
-          "enabled": false
+          "id": "scripps-youtube",
+          "name": "Scripps Pier",
+          "provider": "Scripps Institution of Oceanography",
+          "playback_type": "youtube",
+          "playback_url": "https://www.youtube.com/watch?v=H9HytAXIGns",
+          "source_url": "https://scripps.ucsd.edu/piercam",
+          "attribution": "Ellen Brown Scripps Memorial Pier live stream",
+          "enabled": true
         }
       ]
     },
@@ -172,14 +172,14 @@
       ],
       "cameras": [
         {
-          "id": "ocean-beach-sd-placeholder",
-          "name": "Main",
-          "provider": "Pending",
-          "playback_type": "external",
-          "playback_url": null,
-          "source_url": null,
-          "attribution": "Camera source pending approval",
-          "enabled": false
+          "id": "ob-youtube",
+          "name": "Ocean Beach",
+          "provider": "Live Surf Cam",
+          "playback_type": "youtube",
+          "playback_url": "https://www.youtube.com/watch?v=fMP8y4IjUHw",
+          "source_url": "https://www.youtube.com/watch?v=fMP8y4IjUHw",
+          "attribution": "Live Surf Cam: Ocean Beach San Diego, California",
+          "enabled": true
         }
       ]
     },
@@ -251,14 +251,14 @@
       ],
       "cameras": [
         {
-          "id": "oceanside-placeholder",
-          "name": "Main",
-          "provider": "Pending",
-          "playback_type": "external",
-          "playback_url": null,
-          "source_url": null,
-          "attribution": "Camera source pending approval",
-          "enabled": false
+          "id": "oceanside-rooftop-youtube",
+          "name": "Rooftop Bar",
+          "provider": "San Diego Web Cam",
+          "playback_type": "youtube",
+          "playback_url": "https://www.youtube.com/watch?v=cvP_F-c2Upw",
+          "source_url": "https://www.youtube.com/@SanDiegoWebCam",
+          "attribution": "4K live stream from The Rooftop Bar at Mission Pacific Beach Resort",
+          "enabled": true
         }
       ]
     },
@@ -313,6 +313,69 @@
           "playback_url": "https://www.youtube.com/watch?v=mhQjsLBfOoY",
           "source_url": "https://www.youtube.com/watch?v=mhQjsLBfOoY",
           "attribution": "Official City of Huntington Beach YouTube live stream",
+          "enabled": true
+        }
+      ]
+    },
+    {
+      "id": "santa-monica",
+      "slug": "santa-monica",
+      "name": "Santa Monica",
+      "locality": "Santa Monica",
+      "region": "California",
+      "country": "USA",
+      "latitude": 34.0094,
+      "longitude": -118.4972,
+      "aliases": [
+        "Santa Monica Pier",
+        "Santa Monica Beach"
+      ],
+      "cameras": [
+        {
+          "id": "santa-monica-explore-youtube",
+          "name": "Beach & Pier",
+          "provider": "Explore.org",
+          "playback_type": "youtube",
+          "playback_url": "https://www.youtube.com/watch?v=v97JpT3ZA0w",
+          "source_url": "https://explore.org/livecams/santa-monica-beach/santa-monica-beach-cam",
+          "attribution": "24/7 live stream by Explore.org",
+          "enabled": true
+        }
+      ]
+    },
+    {
+      "id": "venice-beach",
+      "slug": "venice-beach",
+      "name": "Venice Beach",
+      "locality": "Venice",
+      "region": "California",
+      "country": "USA",
+      "latitude": 33.9850,
+      "longitude": -118.4695,
+      "aliases": [
+        "Venice",
+        "Venice Boardwalk",
+        "Venice Breakwater"
+      ],
+      "cameras": [
+        {
+          "id": "venice-v-hotel-youtube",
+          "name": "Venice V Hotel",
+          "provider": "Venice V Hotel",
+          "playback_type": "youtube",
+          "playback_url": "https://www.youtube.com/watch?v=EO_1LWqsCNE",
+          "source_url": "https://venicevhotel.com/webcam/",
+          "attribution": "Eagle eye view from Venice V Hotel",
+          "enabled": true
+        },
+        {
+          "id": "venice-north-boardwalk-youtube",
+          "name": "North Boardwalk",
+          "provider": "Venice Beach Live",
+          "playback_type": "youtube",
+          "playback_url": "https://www.youtube.com/watch?v=98jOtUeM3m8",
+          "source_url": "https://www.youtube.com/watch?v=98jOtUeM3m8",
+          "attribution": "24/7 North Boardwalk live stream",
           "enabled": true
         }
       ]
@@ -446,8 +509,18 @@
           "playback_type": "youtube",
           "playback_url": "https://www.youtube.com/watch?v=lmec_rcEIL4",
           "source_url": "https://www.pacificaview.net/livecam/",
-          "attribution": "Current Sharp Park Beach live stream by Chamberlin Nature",
+          "attribution": "4K live stream by Chamberlin Nature",
           "enabled": true
+        },
+        {
+          "id": "pacifica-pier-youtube",
+          "name": "Pacifica Pier",
+          "provider": "Chamberlin Nature",
+          "playback_type": "youtube",
+          "playback_url": "https://www.youtube.com/watch?v=yLJCR5TlHoI",
+          "source_url": "https://www.pacificaview.net/livecam/",
+          "attribution": "4K Pacifica Pier and Beach live stream — video ID stale, needs update",
+          "enabled": false
         }
       ]
     }
